@@ -67,7 +67,7 @@
         </div>
     </div>
     <div class="row">
-        @include('pages.presensi.table')
+        @include('Pages.Presensi.table')
     </div>
 
     <script>
