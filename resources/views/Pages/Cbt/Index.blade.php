@@ -28,7 +28,7 @@
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
                                     <i class="fa fa-clock"></i>
                                     <span class="ms-2">
-                                        <span id="waktu"></span>
+                                        <span id="waktus"></span>
                                     </span>
 
                                     @push('scripts')
@@ -45,7 +45,7 @@
                                                 var menit = now.getMinutes().toString().padStart(2, '0');
                                                 var detik = now.getSeconds().toString().padStart(2, '0');
                                                 var waktu = hari + ', ' + tanggal + ' ' + bulan + ' ' + tahun + ' ' + jam + ':' + menit + ':' + detik;
-                                                document.getElementById("waktu").textContent = waktu;
+                                                document.getElementById("waktus").textContent = waktu;
                                             }, 1000);
                                         </script>
                                     @endpush
