@@ -20,7 +20,7 @@
                                     data-bs-target="#import">
                                     Import
                                 </button>
-                                @include('Pages.banksoal.modal')
+                                @include('Pages.BankSoal.modal')
                             </div>
                         </div>
                     </div>
