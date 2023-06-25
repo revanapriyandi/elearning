@@ -111,7 +111,7 @@ class PengajarController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'mata_pelajaran' => ['required', 'exists:mata_pelajarans,id'],
             'kelas' => ['required', 'exists:kelas,id'],
-            'email' => ['required', 'string', 'email', 'max:50', 'unique:users,email,' . $pengajar->id],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:users,email,' . $pengajar->user_id],
             'no_hp' => ['required', 'string', 'max:50'],
             'alamat' => ['required', 'string', 'max:255'],
         ]);
