@@ -6,8 +6,8 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{ auth()->user()->image_url }}" alt="profile_image"
-                            class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ auth()->user()->image_url ?? 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fuser-icon&psig=AOvVaw1v2xc9SjnyiYwirMj3utIm&ust=1687817812687000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLCtoLy53_8CFQAAAAAdAAAAABAE' }}"
+                            alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
