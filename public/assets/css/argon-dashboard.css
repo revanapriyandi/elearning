@@ -23869,10 +23869,10 @@ hr.horizontal.gray-light {
 .sidenav {
     transition: all 0.2s ease-in-out;
 }
-/*
+
 .sidenav {
     z-index: 50;
-} */
+} 
 
 .sidenav .navbar-brand,
 .sidenav .navbar-heading {
