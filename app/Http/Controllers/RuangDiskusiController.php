@@ -13,7 +13,7 @@ class RuangDiskusiController extends Controller
     public function index()
     {
         return view(
-            'pages.ruangdiskusi.index',
+            'Pages.RuangDiskusi.index',
             [
                 'data' => RuangDiskusi::with(['user', 'mapel'])->orderBy('created_at', 'desc')->paginate(10),
                 'mapel' => MataPelajaran::all()
@@ -43,7 +43,7 @@ class RuangDiskusiController extends Controller
     public function show($ruangdiskusi)
     {
         $data = RuangDiskusi::with('comment')->where('slug', $ruangdiskusi)->firstOrFail();
-        return view('pages.ruangdiskusi.show', ['data' => $data]);
+        return view('Pages.RuangDiskusi.show', ['data' => $data]);
     }
 
     public function comment(Request $request, $id)
