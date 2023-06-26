@@ -47,14 +47,14 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <a href="{{ route('banksoal.soal.update', ['id' => $item->id, 'quiz' => request()->id, 'as' => true]) }}"
+                                                    <a href="{{ route('banksoal.soal.update.nilai', ['id' => $item->id, 'quiz' => request()->id, 'as' => true]) }}"
                                                         class="btn btn-sm btn-primary">
                                                         <span class="btn-inner--icon"><i
                                                                 class="ni ni-check-bold"></i></span>
                                                     </a>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <a href="{{ route('banksoal.soal.update', ['id' => $item->id, 'quiz' => request()->id, 'as' => false]) }}"
+                                                    <a href="{{ route('banksoal.soal.update.nilai', ['id' => $item->id, 'quiz' => request()->id, 'as' => false]) }}"
                                                         class="btn btn-sm btn-danger">
                                                         <span class="btn-inner--icon"><i
                                                                 class="ni ni-fat-remove"></i></span>

@@ -15,4 +15,9 @@ class Presensi extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class);
+    }
 }

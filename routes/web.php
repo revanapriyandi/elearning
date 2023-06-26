@@ -14,6 +14,8 @@ use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\RuangDiskusiController;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\TahunAjaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('masterdata')->middleware(['auth'])->group(function () {
     Route::middleware('admin')->group(function () {
+        Route::resource('tahun-ajaran', TahunAjaranController::class)->except(['show']);
+        Route::resource('semester', SemesterController::class)->except(['show']);
         Route::get('kelas', [KelasController::class, 'index'])->name('kelas');
         Route::post('kelas/store', [KelasController::class, 'store'])->name('kelas.store');
         Route::get('kelas/edit/{kelas}', [KelasController::class, 'edit'])->name('kelas.edit');
@@ -58,8 +62,15 @@ Route::prefix('masterdata')->middleware(['auth'])->group(function () {
         Route::resource('mapel', MataPelajaranController::class, ['except' => ['show', 'create']]);
     });
     Route::resource('siswa', SiswaController::class, ['except' => ['show']])->middleware('pengajar');
-
     Route::resource('user', UserController::class);
+});
+
+Route::prefix('report')->middleware(['auth'])->group(function () {
+    Route::get('presensi/data', [PresensiController::class, 'dataList'])->name('presensi.data');
+    Route::get('presensi/{id}/detail', [PresensiController::class, 'dataShow'])->name('presensi.detail');
+
+    Route::get('siswa/nilai', [SiswaController::class, 'dataNilai'])->name('siswa.dataNilai');
+    Route::get('siswa/{id}/nilai', [SiswaController::class, 'detailNilai'])->name('siswa.detailNilai');
 });
 
 Route::prefix('mod')->middleware(['auth'])->group(function () {
@@ -83,8 +94,8 @@ Route::prefix('cbt')->middleware(['auth', 'pengajar'])->group(function () {
     Route::get('/banksoal/{id}/soal/create', [SoalController::class, 'create'])->name('banksoal.soal.create');
     Route::post('/banksoal/{id}/soal/store', [SoalController::class, 'store'])->name('banksoal.soal.store');
     Route::get('/banksoal/soal/edit/{id}', [SoalController::class, 'edit'])->name('banksoal.soal.edit');
-    Route::put('/banksoal/soal/update/{id}', [SoalController::class, 'update'])->name('banksoal.soal.update');
+    Route::put('/banksoal/soal/{id}/update', [SoalController::class, 'update'])->name('banksoal.soal.update');
     Route::delete('/banksoal/soal/destroy/{id}', [SoalController::class, 'destroy'])->name('banksoal.soal.destroy');
     Route::get('/banksoal/soal/{id}/nilai', [SoalController::class, 'nilai'])->name('banksoal.soal.nilai');
-    Route::get('/banksoal/{quiz}soal/{id}/update', [SoalController::class, 'nilaiUpdate'])->name('banksoal.soal.update');
+    Route::get('/banksoal/{quiz}/soal/{id}/update', [SoalController::class, 'nilaiUpdate'])->name('banksoal.soal.update.nilai');
 });

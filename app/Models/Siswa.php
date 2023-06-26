@@ -40,4 +40,19 @@ class Siswa extends Model
     {
         return $this->hasMany(SiswaUjian::class, 'siswa_id');
     }
+
+    public function tahunAjaran()
+    {
+        return $this->belongsTo(TahunAjaran::class);
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function presensi()
+    {
+        return $this->hasMany(Presensi::class, 'siswa_id');
+    }
 }

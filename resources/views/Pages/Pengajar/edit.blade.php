@@ -137,7 +137,7 @@
                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                 <label>{{ __('Nomor Hp') }}<span class="text-danger">*</span></label>
                                 <input class="form-control  @error('no_hp') is-invalid @enderror" type="tel"
-                                    pattern="^\d{13}$" name="no_hp" value="{{ $pengajar->no_hp }}">
+                                    pattern="^\d{13}$" name="no_hp" value="{{ $pengajar->user->no_hp }}">
                                 @error('no_hp')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

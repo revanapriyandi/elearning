@@ -35,6 +35,12 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         {{ __('Kelas') }}
                                     </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        {{ __('Tahun Ajaran') }}
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        {{ __('Semester') }}
+                                    </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         {{ __('Email') }}
@@ -72,6 +78,20 @@
                                             <span class="badge badge-dot me-4">
                                                 <i class="bg-info"></i>
                                                 <span class="text-dark text-xs">{{ $item->kelas->nama_kelas }}</span>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span class="badge badge-dot me-4">
+                                                <i class="bg-info"></i>
+                                                <span class="text-dark text-xs">{{ $item->tahunAjaran->name }}</span>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span class="badge badge-dot me-4">
+                                                <i class="bg-info"></i>
+                                                <span class="text-dark text-xs">{{ $item->semester->name }}</span>
                                             </span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
@@ -121,31 +141,31 @@
                     buttons: [{
                             extend: 'copyHtml5',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
+                                columns: [0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'excelHtml5',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
+                                columns: [0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'csvHtml5',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
+                                columns: [0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'pdfHtml5',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
+                                columns: [0, 1, 2, 3, 4, 5, 6]
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4]
+                                columns: [0, 1, 2, 3, 4, 5, 6]
                             }
                         }
                     ],

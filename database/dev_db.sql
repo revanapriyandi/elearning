@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 25 Jun 2023 pada 21.06
+-- Waktu pembuatan: 26 Jun 2023 pada 04.49
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -46,7 +46,7 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `jawabans` (
   `id` bigint UNSIGNED NOT NULL,
   `soal_id` bigint UNSIGNED NOT NULL,
-  `pilihan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pilihan` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `text_jawaban` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_benar` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -58,26 +58,21 @@ CREATE TABLE `jawabans` (
 --
 
 INSERT INTO `jawabans` (`id`, `soal_id`, `pilihan`, `text_jawaban`, `is_benar`, `created_at`, `updated_at`) VALUES
-(14, 7, 'A', '<p>Studi tentang bahasa alami</p>', 0, '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(15, 7, 'B', '<p>Studi tentang komputasi dan bahasa formal&nbsp;</p>', 1, '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(16, 7, 'C', '<p>Studi tentang pengolahan bahasa manusia</p>', 0, '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(17, 7, 'D', '<p>Studi tentang penerjemahan bahasa</p>', 0, '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(18, 7, 'E', '<p>Studi tentang linguistik terapan</p>', 0, '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(19, 8, 'A', '<p>Bahasa alami </p>', 0, '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(20, 8, 'B', '<p>Komputasi dan pemrosesan bahasa </p>', 1, '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(21, 8, 'C', '<p>Penerjemahan bahasa</p>', 0, '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(22, 8, 'D', '<p>Ilmu sosial</p>', 0, '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(23, 8, 'E', '<p>Analisis bahasa</p>', 0, '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(24, 9, 'A', '<p>Bahasa Inggris</p>', 0, '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(25, 9, 'B', '<p>Bahasa Indonesia</p>', 0, '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(26, 9, 'C', '<p>Bahasa manusia</p>', 0, '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(27, 9, 'D', '<p>&nbsp;Bahasa pemrograman</p>', 1, '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(28, 9, 'E', '<p>Bahasa sehari-hari</p>', 0, '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(29, 10, 'A', '<p>Mesin penjualan otomatis</p>', 0, '2023-06-25 18:25:20', '2023-06-25 18:25:20'),
-(30, 10, 'B', '<p>Mesin komputer pertama</p>', 1, '2023-06-25 18:25:20', '2023-06-25 18:25:20'),
-(31, 10, 'C', '<p>Mesin penghitung sederhana</p>', 0, '2023-06-25 18:25:20', '2023-06-25 18:25:20'),
-(32, 10, 'D', '<p>Mesin pemrograman</p>', 0, '2023-06-25 18:25:20', '2023-06-25 18:25:20'),
-(33, 10, 'E', '<p>Mesin penerjemah bahasa</p>', 0, '2023-06-25 18:25:20', '2023-06-25 18:25:20');
+(1, 1, 'A', '<p>Sebuah alat komunikasi antara manusia</p>', 0, '2023-06-26 04:35:24', '2023-06-26 04:35:24'),
+(2, 1, 'B', '<p>Sebuah sistem simbol dan aturan untuk mengungkapkan makna</p>', 0, '2023-06-26 04:35:24', '2023-06-26 04:42:18'),
+(3, 1, 'C', '<p>Sebuah metode untuk mencetak teks dalam dokumen</p>', 0, '2023-06-26 04:35:24', '2023-06-26 04:42:18'),
+(4, 1, 'D', '<p>Sebuah teknologi pemrosesan suara</p>', 1, '2023-06-26 04:35:24', '2023-06-26 04:42:18'),
+(5, 1, 'E', '<p>Sebuah bentuk seni dalam menyusun kata-kata</p>\r\n<p>&nbsp;</p>', 0, '2023-06-26 04:35:24', '2023-06-26 04:35:24'),
+(6, 2, 'A', '<p>Sebuah perangkat keras yang dapat bergerak secara otomatis</p>', 1, '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(7, 2, 'B', '<p>Sebuah algoritma untuk mengoptimalkan proses komputasi</p>', 0, '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(8, 2, 'C', '<p>Sebuah aplikasi perangkat lunak untuk mengelola data</p>', 0, '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(9, 2, 'D', '<p>Sebuah mesin abstrak yang dapat memproses urutan simbol</p>', 0, '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(10, 2, 'E', '<p>Sebuah model matematika untuk memprediksi peristiwa masa depan</p>', 0, '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(11, 3, 'A', '<p>Bahasa yang digunakan dalam situasi resmi seperti pidato politik</p>', 0, '2023-06-26 04:36:40', '2023-06-26 04:36:40'),
+(12, 3, 'B', '<p>Bahasa yang digunakan dalam percakapan sehari-hari antar manusia</p>', 0, '2023-06-26 04:36:40', '2023-06-26 04:36:40'),
+(13, 3, 'C', '<p>Bahasa yang digunakan dalam komunikasi interpersonal</p>', 0, '2023-06-26 04:36:40', '2023-06-26 04:36:40'),
+(14, 3, 'D', '<p>Bahasa yang terdiri dari simbol-simbol yang ditentukan dengan jelas dan aturan sintaksis yang ketat</p>', 1, '2023-06-26 04:36:40', '2023-06-26 04:36:40'),
+(15, 3, 'E', '<p>Bahasa yang hanya digunakan dalam lingkungan akademik</p>', 0, '2023-06-26 04:36:40', '2023-06-26 04:36:40');
 
 -- --------------------------------------------------------
 
@@ -90,10 +85,10 @@ CREATE TABLE `jawaban_siswas` (
   `tugas_quiz_id` bigint UNSIGNED DEFAULT NULL,
   `siswa_id` bigint UNSIGNED NOT NULL,
   `soal_id` bigint UNSIGNED DEFAULT NULL,
-  `pilihan_jawaban` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `jawaban_soal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `pilihan_jawaban` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jawaban_soal` text COLLATE utf8mb4_unicode_ci,
   `is_benar` tinyint(1) DEFAULT NULL,
-  `is_terkoreksi` tinyint(1) NOT NULL DEFAULT '0',
+  `is_terkoreksi` tinyint(1) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -103,10 +98,9 @@ CREATE TABLE `jawaban_siswas` (
 --
 
 INSERT INTO `jawaban_siswas` (`id`, `tugas_quiz_id`, `siswa_id`, `soal_id`, `pilihan_jawaban`, `jawaban_soal`, `is_benar`, `is_terkoreksi`, `created_at`, `updated_at`) VALUES
-(23, NULL, 7, 8, 'B', NULL, 1, 1, '2023-06-25 18:28:54', '2023-06-25 18:28:54'),
-(24, NULL, 7, 10, 'B', NULL, 1, 1, '2023-06-25 18:29:13', '2023-06-25 18:29:13'),
-(25, NULL, 7, 7, 'D', NULL, 0, 1, '2023-06-25 18:39:20', '2023-06-25 18:56:14'),
-(26, NULL, 7, 9, 'D', NULL, 1, 1, '2023-06-25 18:39:35', '2023-06-25 18:39:35');
+(1, NULL, 1, 1, 'D', NULL, 1, 1, '2023-06-26 04:44:02', '2023-06-26 04:44:02'),
+(2, NULL, 1, 2, 'A', NULL, 1, 1, '2023-06-26 04:44:14', '2023-06-26 04:44:14'),
+(3, NULL, 1, 3, 'D', NULL, 1, 1, '2023-06-26 04:44:17', '2023-06-26 04:44:17');
 
 -- --------------------------------------------------------
 
@@ -116,8 +110,8 @@ INSERT INTO `jawaban_siswas` (`id`, `tugas_quiz_id`, `siswa_id`, `soal_id`, `pil
 
 CREATE TABLE `kelas` (
   `id` bigint UNSIGNED NOT NULL,
-  `kode_kelas` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_kelas` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_kelas` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kompetensi_keahlian` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -129,9 +123,8 @@ CREATE TABLE `kelas` (
 -- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `kode_kelas`, `slug`, `nama_kelas`, `kompetensi_keahlian`, `image`, `created_at`, `updated_at`) VALUES
-(6, '41-RK', 'semester-4-reguler', 'Semester 4 Reguler', 'Teknik Informatika,\r\nSistem Informasi', NULL, '2023-06-16 00:07:35', '2023-06-16 00:35:37'),
-(7, '61-RK', 'semester-6-regularkaryawan', 'Semester 6 Regular/Karyawan', NULL, NULL, '2023-06-16 00:07:53', '2023-06-16 00:07:53');
+INSERT INTO `kelas` (`id`, `slug`, `kode_kelas`, `nama_kelas`, `kompetensi_keahlian`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'reguler', '61-RK', 'Reguler', 'Kelas Reguler', NULL, '2023-06-26 02:08:59', '2023-06-26 02:08:59');
 
 -- --------------------------------------------------------
 
@@ -149,7 +142,7 @@ CREATE TABLE `kelas_tugas_quiz` (
 --
 
 INSERT INTO `kelas_tugas_quiz` (`kelas_id`, `tugas_quiz_id`) VALUES
-(6, 9);
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -172,8 +165,8 @@ CREATE TABLE `mata_pelajarans` (
 --
 
 INSERT INTO `mata_pelajarans` (`id`, `kode_mapel`, `nama_mapel`, `deskripsi`, `image`, `created_at`, `updated_at`) VALUES
-(2, 'TBA-41-RK', 'TEORI BAHASA DAN AUTOMATA', 'Dosen : Fildzah Shabrina, M.Kom.\r\nSelamat Datang Pada Mata Kuliah :\r\nTeori Bahasa dan Automata\r\nSemester Genap Tahun Akademik 2022/2023', NULL, '2023-06-16 01:21:30', '2023-06-16 01:32:18'),
-(3, 'AOK', 'ARSITEKTUR DAN ORGANISASI KOMPUTER', NULL, NULL, '2023-06-17 11:18:42', '2023-06-17 11:18:42');
+(1, 'TBA-41-R', 'Teori Bahasa dan Otomata', 'TBO', NULL, '2023-06-26 02:03:20', '2023-06-26 02:03:20'),
+(3, 'AOK', 'ARSITEKTUR DAN ORGANISASI KOMPUTER', NULL, NULL, '2023-06-17 04:18:42', '2023-06-17 04:18:42');
 
 -- --------------------------------------------------------
 
@@ -200,20 +193,22 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2023_06_16_030546_create_kelas_table', 1),
 (7, '2023_06_16_030630_create_mata_pelajarans_table', 1),
 (8, '2023_06_16_031137_create_pengajars_table', 1),
-(9, '2023_06_16_031446_create_siswas_table', 1),
-(14, '2023_06_16_033315_create_soals_table', 2),
-(15, '2023_06_16_033544_create_jawabans_table', 2),
-(16, '2023_06_16_033849_create_jawaban_siswas_table', 2),
-(18, '2023_06_18_234407_add_role_on_table_users', 4),
-(22, '2023_06_19_013149_create_kelas_tugas_quiz_table', 6),
-(23, '2023_06_16_032639_create_tugas_quizzes_table', 7),
-(24, '2023_06_18_231745_add-pengajars-table-tugas-quizzes', 8),
-(26, '2023_06_20_180322_add_slug_on_users_table', 9),
-(27, '2023_06_21_005318_create_siswa_ujian_table', 10),
-(28, '2023_06_23_214940_add_tugas_quiz_id_on_jawaban_siswa_table', 11),
-(29, '2023_06_16_031758_create_presensis_table', 12),
-(30, '2023_06_16_032124_create_ruang_diskusis_table', 13),
-(31, '2023_06_16_032419_create_ruang_diskusi_comments_table', 13);
+(9, '2023_06_16_031424_create_semesters_table', 1),
+(10, '2023_06_16_031433_create_tahun_ajarans_table', 1),
+(11, '2023_06_16_031446_create_siswas_table', 1),
+(12, '2023_06_16_031758_create_presensis_table', 1),
+(13, '2023_06_16_032124_create_ruang_diskusis_table', 1),
+(14, '2023_06_16_032419_create_ruang_diskusi_comments_table', 1),
+(15, '2023_06_16_032639_create_tugas_quizzes_table', 1),
+(16, '2023_06_16_033315_create_soals_table', 1),
+(17, '2023_06_16_033544_create_jawabans_table', 1),
+(18, '2023_06_16_033849_create_jawaban_siswas_table', 1),
+(19, '2023_06_18_231745_add-pengajars-table-tugas-quizzes', 1),
+(20, '2023_06_18_234407_add_role_on_table_users', 1),
+(21, '2023_06_19_013149_create_kelas_tugas_quiz_table', 1),
+(22, '2023_06_21_005318_create_siswa_ujian_table', 1),
+(23, '2023_06_23_214940_add_tugas_quiz_id_on_jawaban_siswa_table', 1),
+(24, '2023_06_26_100605_add_status_to_presensis_table', 2);
 
 -- --------------------------------------------------------
 
@@ -260,7 +255,7 @@ CREATE TABLE `pengajars` (
 --
 
 INSERT INTO `pengajars` (`id`, `nip`, `user_id`, `mata_pelajaran_id`, `kelas_id`, `created_at`, `updated_at`) VALUES
-(3, '21317766222', 14, 2, 6, '2023-06-25 14:30:25', '2023-06-25 14:30:25');
+(1, '217771881', 2, 1, 1, '2023-06-26 02:09:26', '2023-06-26 02:09:26');
 
 -- --------------------------------------------------------
 
@@ -304,7 +299,7 @@ CREATE TABLE `presensis` (
 --
 
 INSERT INTO `presensis` (`id`, `siswa_id`, `status`, `keterangan`, `latitude`, `longitude`, `location`, `created_at`, `updated_at`) VALUES
-(3, 7, 'hadir', '-', '-6.2291968', '106.807296', NULL, '2023-06-25 16:27:44', '2023-06-25 16:27:44');
+(1, 1, 'hadir', '-', '-6.2291968', '106.807296', NULL, '2023-06-26 02:50:22', '2023-06-26 02:50:22');
 
 -- --------------------------------------------------------
 
@@ -323,13 +318,6 @@ CREATE TABLE `ruang_diskusis` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `ruang_diskusis`
---
-
-INSERT INTO `ruang_diskusis` (`id`, `slug`, `judul`, `content`, `mata_pelajaran_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'jawaban-ganda-dan-gambar-tidak-jelas', 'Jawaban ganda dan Gambar tidak jelas', 'Jawaban no 5 tidak ada', 2, 13, '2023-06-25 17:26:03', '2023-06-25 17:26:03');
-
 -- --------------------------------------------------------
 
 --
@@ -346,13 +334,27 @@ CREATE TABLE `ruang_diskusi_comments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `ruang_diskusi_comments`
+-- Struktur dari tabel `semesters`
 --
 
-INSERT INTO `ruang_diskusi_comments` (`id`, `ruang_diskusi_id`, `user_id`, `content`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 13, 'Saya sudah menjawab d dan ternyata salah :3', NULL, '2023-06-25 17:36:23', '2023-06-25 17:36:23'),
-(2, 1, 13, 'apa yang harus dipilih ?', NULL, '2023-06-25 17:42:37', '2023-06-25 17:42:37');
+CREATE TABLE `semesters` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `semesters`
+--
+
+INSERT INTO `semesters` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(2, 'Ganjil', 'ganjil', '2023-06-26 01:32:10', '2023-06-26 01:32:10'),
+(3, 'Genap', 'genap', '2023-06-26 01:32:13', '2023-06-26 01:32:13');
 
 -- --------------------------------------------------------
 
@@ -365,6 +367,8 @@ CREATE TABLE `siswas` (
   `nis` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `kelas_id` bigint UNSIGNED NOT NULL,
+  `tahun_ajaran_id` bigint UNSIGNED NOT NULL,
+  `semester_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -373,8 +377,8 @@ CREATE TABLE `siswas` (
 -- Dumping data untuk tabel `siswas`
 --
 
-INSERT INTO `siswas` (`id`, `nis`, `user_id`, `kelas_id`, `created_at`, `updated_at`) VALUES
-(7, '0821110082', 13, 6, '2023-06-25 14:29:26', '2023-06-25 14:29:26');
+INSERT INTO `siswas` (`id`, `nis`, `user_id`, `kelas_id`, `tahun_ajaran_id`, `semester_id`, `created_at`, `updated_at`) VALUES
+(1, '08211192', 4, 1, 2, 2, '2023-06-26 02:23:38', '2023-06-26 02:27:15');
 
 -- --------------------------------------------------------
 
@@ -404,7 +408,7 @@ CREATE TABLE `siswa_ujian` (
 --
 
 INSERT INTO `siswa_ujian` (`id`, `siswa_id`, `tugas_quiz_id`, `status`, `nilai`, `benar`, `salah`, `kosong`, `durasi`, `waktu_mulai`, `waktu_selesai`, `waktu_dikerjakan`, `created_at`, `updated_at`) VALUES
-(27, 7, 9, 'belum', 75, 3, 1, NULL, 60, '2023-06-26 02:39:07', '2023-06-26 01:56:18', '2023-06-26 02:39:07', '2023-06-25 18:56:04', '2023-06-25 19:39:07');
+(1, 1, 1, 'selesai', 100, 3, 0, NULL, 60, '2023-06-26 11:43:52', '2023-06-26 11:44:17', '2023-06-26 11:43:52', '2023-06-26 04:43:50', '2023-06-26 04:44:17');
 
 -- --------------------------------------------------------
 
@@ -426,10 +430,31 @@ CREATE TABLE `soals` (
 --
 
 INSERT INTO `soals` (`id`, `pertanyaan`, `tugas_quiz_id`, `jenis`, `created_at`, `updated_at`) VALUES
-(7, '<p>Apa yang dimaksud dengan Teori Bahasa dan Automata?</p>', 9, 'pilihan_ganda', '2023-06-25 18:14:17', '2023-06-25 18:14:17'),
-(8, '<p>Apa yang menjadi fokus utama dalam Teori Bahasa dan Automata?</p>', 9, 'pilihan_ganda', '2023-06-25 18:23:20', '2023-06-25 18:23:20'),
-(9, '<p>Apa yang merupakan contoh bahasa formal?</p>', 9, 'pilihan_ganda', '2023-06-25 18:24:09', '2023-06-25 18:24:09'),
-(10, '<p>Apa yang dimaksud dengan mesin Turing dalam Teori Bahasa dan Automata?</p>', 9, 'pilihan_ganda', '2023-06-25 18:25:20', '2023-06-25 18:25:20');
+(1, '<p>Apa yang dimaksud dengan bahasa dalam teori bahasa dan otomata?</p>', 1, 'pilihan_ganda', '2023-06-26 04:35:24', '2023-06-26 04:42:18'),
+(2, '<p>Apa yang dimaksud dengan otomata dalam teori bahasa dan otomata? </p>', 1, 'pilihan_ganda', '2023-06-26 04:35:58', '2023-06-26 04:35:58'),
+(3, '<p>Apa yang dimaksud dengan bahasa formal dalam teori bahasa dan otomata?</p>', 1, 'pilihan_ganda', '2023-06-26 04:36:40', '2023-06-26 04:36:40');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tahun_ajarans`
+--
+
+CREATE TABLE `tahun_ajarans` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `tahun_ajarans`
+--
+
+INSERT INTO `tahun_ajarans` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, '2023/2024', '1', '2023-06-26 01:51:33', '2023-06-26 01:58:56'),
+(2, '2022/2023', '0', '2023-06-26 01:58:44', '2023-06-26 01:58:52');
 
 -- --------------------------------------------------------
 
@@ -461,7 +486,7 @@ CREATE TABLE `tugas_quizzes` (
 --
 
 INSERT INTO `tugas_quizzes` (`id`, `user_id`, `slug`, `judul`, `deskripsi`, `jenis`, `mata_pelajaran_id`, `waktu_mulai`, `waktu_berakhir`, `is_aktif`, `is_dikoreksi`, `is_terbitkan_nilai`, `is_poin`, `is_acak_soal`, `created_at`, `updated_at`) VALUES
-(9, 14, 'ujian-semester', 'Ujian Semester', '<p>Ujian Semester adalah bentuk evaluasi akademik yang dilakukan pada akhir semester atau akhir periode pembelajaran. Ujian ini bertujuan untuk mengukur pemahaman dan kemampuan siswa atau mahasiswa terhadap seluruh materi pembelajaran yang telah diajarkan selama satu semester.</p>\r\n<p>Kerjakan dengan baik!!<br><br></p>', 'quiz', 2, '2023-06-26 01:10:00', '2023-06-28 01:10:00', 1, 0, 1, 0, 1, '2023-06-25 18:11:22', '2023-06-25 18:11:22');
+(1, 1, 'ujian-akhir', 'Ujian Akhir', '<p>Berikut ini adalah contoh soal ujian akhir teori bahasa dan otomata beserta pilihan jawaban (A, B, C, D, E) dan jawabannya:</p>\r\n<ol style=\"list-style-type: none;\">\r\n<li>&nbsp;</li>\r\n</ol>', 'quiz', 1, '2023-06-26 11:34:00', '2023-06-27 11:34:00', 1, 0, 1, 0, 0, '2023-06-26 04:34:27', '2023-06-26 04:34:27');
 
 -- --------------------------------------------------------
 
@@ -493,9 +518,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `nama_lengkap`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `no_hp`, `alamat`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(12, 'admin', 'Administrator', NULL, NULL, NULL, NULL, NULL, 'admin@gmail.com', NULL, '$2y$10$2n0haUrKKU1wnkJp7glDAOHlbmpO0p081hgkyt5x8Bpw8J3qR4fR2', 'admin', NULL, '2023-06-25 14:34:26', '2023-06-24 17:00:00', NULL),
-(13, NULL, 'Akhmad Fatur', 'L', NULL, NULL, '082776622', 'Jakarta Timur', 'fatur@gmail.com', NULL, '$2y$10$l01H5qiz2gMxCv9mgGAek.B5eiJYFi31K.7eUU6WWV1TVoWDO9og.', 'siswa', NULL, '2023-06-25 14:29:26', '2023-06-25 14:29:26', NULL),
-(14, NULL, 'Wahyu Widji', NULL, NULL, NULL, '0821776622', 'Bekasi', 'wahyuwidji@gmail.com', NULL, '$2y$10$C6YFqVui162R11fsqJirmetAV96YegLqLCpZLVW92PapgGgWymLAK', 'pengajar', NULL, '2023-06-25 14:30:25', '2023-06-25 14:30:25', NULL);
+(1, 'admin', 'Administrator', NULL, NULL, NULL, NULL, NULL, 'admin@E-LearningPlatform(PJ).com', '2023-06-26 01:08:30', '$2y$10$MUegnSmXvsGgOpqbnt4GWOLPUWAmEJypw7VjKLuI7D38zlgm1aXHe', 'admin', 'cbofIo6Ode', '2023-06-26 01:08:30', '2023-06-26 04:31:09', NULL),
+(2, NULL, 'Pengajar', NULL, NULL, NULL, '082177722', 'Jakarta Timur', 'pengajar@gmail.com', NULL, '$2y$10$9bBeg4oqkylZ01nq1XBHtuffIEltsY/hWO.5QuvJ2vhJyaFTxAxmC', 'pengajar', NULL, '2023-06-26 02:09:26', '2023-06-26 02:09:26', NULL),
+(4, 'siswa', 'Siswa', 'P', NULL, '2002-04-25', '08212222444', 'Jakarta', 'siswa@gmail.com', NULL, '$2y$10$cAt.hl2h.P2nQLI/zkgtFegOhjijkH67AhLo7D6DBS8q10bpGiRXO', 'siswa', NULL, '2023-06-26 02:23:38', '2023-06-26 04:33:03', NULL);
 
 --
 -- Indexes for dumped tables
@@ -604,13 +629,21 @@ ALTER TABLE `ruang_diskusi_comments`
   ADD KEY `ruang_diskusi_comments_user_id_foreign` (`user_id`);
 
 --
+-- Indeks untuk tabel `semesters`
+--
+ALTER TABLE `semesters`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `siswas`
 --
 ALTER TABLE `siswas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `siswas_nis_unique` (`nis`),
   ADD KEY `siswas_user_id_foreign` (`user_id`),
-  ADD KEY `siswas_kelas_id_foreign` (`kelas_id`);
+  ADD KEY `siswas_kelas_id_foreign` (`kelas_id`),
+  ADD KEY `siswas_tahun_ajaran_id_foreign` (`tahun_ajaran_id`),
+  ADD KEY `siswas_semester_id_foreign` (`semester_id`);
 
 --
 -- Indeks untuk tabel `siswa_ujian`
@@ -626,6 +659,12 @@ ALTER TABLE `siswa_ujian`
 ALTER TABLE `soals`
   ADD PRIMARY KEY (`id`),
   ADD KEY `soals_tugas_quiz_id_foreign` (`tugas_quiz_id`);
+
+--
+-- Indeks untuk tabel `tahun_ajarans`
+--
+ALTER TABLE `tahun_ajarans`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `tugas_quizzes`
@@ -658,37 +697,37 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `jawabans`
 --
 ALTER TABLE `jawabans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `jawaban_siswas`
 --
 ALTER TABLE `jawaban_siswas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `mata_pelajarans`
 --
 ALTER TABLE `mata_pelajarans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajars`
 --
 ALTER TABLE `pengajars`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -700,49 +739,61 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `presensis`
 --
 ALTER TABLE `presensis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruang_diskusis`
 --
 ALTER TABLE `ruang_diskusis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruang_diskusi_comments`
 --
 ALTER TABLE `ruang_diskusi_comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `semesters`
+--
+ALTER TABLE `semesters`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `siswas`
 --
 ALTER TABLE `siswas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `siswa_ujian`
 --
 ALTER TABLE `siswa_ujian`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `soals`
 --
 ALTER TABLE `soals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `tahun_ajarans`
+--
+ALTER TABLE `tahun_ajarans`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tugas_quizzes`
 --
 ALTER TABLE `tugas_quizzes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -802,6 +853,8 @@ ALTER TABLE `ruang_diskusi_comments`
 --
 ALTER TABLE `siswas`
   ADD CONSTRAINT `siswas_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswas_semester_id_foreign` FOREIGN KEY (`semester_id`) REFERENCES `semesters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswas_tahun_ajaran_id_foreign` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `tahun_ajarans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `siswas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -823,6 +876,25 @@ ALTER TABLE `soals`
 ALTER TABLE `tugas_quizzes`
   ADD CONSTRAINT `tugas_quizzes_mata_pelajaran_id_foreign` FOREIGN KEY (`mata_pelajaran_id`) REFERENCES `mata_pelajarans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tugas_quizzes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+DELIMITER $$
+--
+-- Event
+--
+CREATE DEFINER=`root`@`localhost` EVENT `check_absen_event` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-26 20:14:57' ON COMPLETION PRESERVE ENABLE DO BEGIN
+                IF HOUR(CURRENT_TIME()) = 10 THEN
+                    INSERT INTO presensis (siswa_id, status, created_at)
+                    SELECT id, "alpa", NOW()
+                    FROM siswas
+                    WHERE id NOT IN (
+                        SELECT DISTINCT siswa_id
+                        FROM presensis
+                        WHERE DATE(created_at) = CURDATE()
+                    );
+                END IF;
+            END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

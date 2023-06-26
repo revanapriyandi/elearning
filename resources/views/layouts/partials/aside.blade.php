@@ -27,6 +27,26 @@
             @endif
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item">
+                    <a href="{{ route('semester.index') }}"
+                        class="nav-link {{ request()->is('masterdata/semester*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-sharp fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Semester') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('tahun-ajaran.index') }}"
+                        class="nav-link {{ request()->is('masterdata/tahun-ajaran*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-calendar-days text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Tahun Ajaran') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('kelas') }}"
                         class="nav-link {{ request()->is('masterdata/kelas*') ? 'active' : '' }}">
                         <div
@@ -97,6 +117,31 @@
                         <span class="nav-link-text ms-1">{{ __('Bank Soal') }}</span>
                     </a>
                 </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Report
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('presensi.data') }}"
+                        class="nav-link {{ request()->is('report/presensi*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-object-group text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Presensi') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('siswa.dataNilai') }}"
+                        class="nav-link {{ request()->is('report/siswa/nilai*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-graduation-cap text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Hasil Ujian') }}</span>
+                    </a>
+
+                </li>
             @endif
 
             @if (auth()->user()->role == 'siswa')
@@ -115,7 +160,8 @@
                     </a>
                 </li>
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Computer Based Test (CBT)
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Computer Based Test
+                        (CBT)
                     </h6>
                 </li>
                 <li class="nav-item">
@@ -125,6 +171,20 @@
                             <i class="fa-solid fa-keyboard text-primary text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">{{ __('CBT') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Report
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('siswa.detailNilai', auth()->user()->siswa->id) }}"
+                        class="nav-link {{ request()->is('report/siswa/nilai*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-graduation-cap text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Hasil Ujian') }}</span>
                     </a>
                 </li>
             @endif

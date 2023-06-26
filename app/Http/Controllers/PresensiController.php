@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Presensi;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class PresensiController extends Controller
@@ -12,6 +13,7 @@ class PresensiController extends Controller
     {
         $presensi = Presensi::where('siswa_id', auth()->user()->siswa->id)->paginate(10);
         $presensiHariIni = Presensi::where('siswa_id', auth()->user()->siswa->id)->whereDate('created_at', Carbon::today())->first();
+
         return view('Pages.Presensi.index', [
             'presensi' => $presensi,
             'isWeekend' => false,
@@ -38,5 +40,19 @@ class PresensiController extends Controller
         );
 
         return redirect()->back()->with('success', 'Presensi berhasil disimpan');
+    }
+
+    public function dataList()
+    {
+        return view('Pages.Presensi.data', [
+            'data' => Siswa::with('presensi')->get()
+        ]);
+    }
+
+    public function dataShow($id)
+    {
+        return view('Pages.Presensi.dataShow', [
+            'data' => Siswa::with('presensi')->findOrFail($id)
+        ]);
     }
 }

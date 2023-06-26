@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nis')->unique()->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajarans')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('semester_id')->constrained('semesters')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

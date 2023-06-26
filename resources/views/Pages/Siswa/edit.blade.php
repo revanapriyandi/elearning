@@ -118,8 +118,54 @@
                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                 <label>{{ __('Nomor Hp') }}</label>
                                 <input class="form-control  @error('no_hp') is-invalid @enderror" type="text"
-                                    name="no_hp" value="{{ $siswa->no_hp }}">
+                                    name="no_hp" value="{{ $siswa->user->no_hp }}">
                                 @error('no_hp')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label>{{ __('Tahun Ajaran') }}</label>
+                                <select
+                                    class="multisteps-form__select form-control @error('tahun_ajaran') is-invalid @enderror"
+                                    name="tahun_ajaran" required>
+                                    <option value="" selected disabled>Tahun Ajaran</option>
+                                    @php
+                                        $tahun_ajaran = App\Models\TahunAjaran::all();
+                                    @endphp
+                                    @foreach ($tahun_ajaran as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ($siswa->tahun_ajaran_id == $item->id) selected @endif>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('tahun_ajaran')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label>{{ __('Semester') }}</label>
+                                <select
+                                    class="multisteps-form__select form-control @error('semester') is-invalid @enderror"
+                                    name="semester" required>
+                                    <option value="" selected disabled>Semester</option>
+                                    @php
+                                        $semester = App\Models\Semester::all();
+                                    @endphp
+                                    @foreach ($semester as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ($siswa->semester_id == $item->id) selected @endif>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('semester')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

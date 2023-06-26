@@ -48,6 +48,8 @@ class SiswaController extends Controller
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'kelas' => ['required', 'string', 'exists:kelas,id'],
             'jenis_kelamin' => ['required', 'string', 'max:1'],
+            'tahun_ajaran' => ['required', 'string', 'exists:tahun_ajarans,id'],
+            'semester' => ['required', 'string', 'exists:semesters,id'],
         ]);
 
         $user = User::create([
@@ -64,6 +66,8 @@ class SiswaController extends Controller
             'nis' => $request->nis,
             'user_id' => $user->id,
             'kelas_id' => $request->kelas,
+            'tahun_ajaran_id' => $request->tahun_ajaran,
+            'semester_id' => $request->semester,
         ]);
 
         return redirect()->route('siswa.index')->with('success', 'Berhasil menambahkan data siswa');
@@ -106,10 +110,14 @@ class SiswaController extends Controller
             'jenis_kelamin' => ['required', 'string', 'max:1'],
             'tempat_lahir' => ['nullable', 'string', 'max:255'],
             'tanggal_lahir' => ['nullable', 'date'],
+            'tahun_ajaran' => ['required', 'string', 'exists:tahun_ajarans,id'],
+            'semester' => ['required', 'string', 'exists:semesters,id'],
         ]);
 
         $siswa->nis = $request->nis;
         $siswa->kelas_id = $request->kelas;
+        $siswa->tahun_ajaran_id = $request->tahun_ajaran;
+        $siswa->semester_id = $request->semester;
         $siswa->save();
 
         $user = User::findOrFail($siswa->user_id);
@@ -136,5 +144,21 @@ class SiswaController extends Controller
         $siswa->delete();
 
         return redirect()->route('siswa.index')->with('success', 'Berhasil menghapus data siswa');
+    }
+
+    public function dataNilai()
+    {
+        $siswa = Siswa::with(['user', 'ujian'])->get();
+        return view('Pages.Siswa.dataNilai', [
+            'data' => $siswa,
+        ]);
+    }
+
+    public function detailNilai(string $id)
+    {
+        $siswa = Siswa::with(['user', 'ujian'])->findOrFail($id);
+        return view('Pages.Siswa.detailNilai', [
+            'data' => $siswa,
+        ]);
     }
 }

@@ -35,9 +35,20 @@
                     <div class="card-body">
                         <h5 class="font-weight-bolder mb-0">{{ __('Update User') }}</h5>
                         <p class="mb-0 text-sm">{{ $user->nama_lengkap }}</p>
+                        <div class="col-12 col-sm-12">
+                            <label>{{ __('Username') }}</label>
+                            <input class="multisteps-form__input form-control @error('username') is-invalid @enderror"
+                                type="text" placeholder="{{ __('Username') }}" autofocus name="username"
+                                value="{{ $user->username }}">
+                            @error('username')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="row mt-3">
                             <div class="col-12 col-sm-6">
-                                <label>{{ __('Email') }}</label>
+                                <label>{{ __('Nama') }}</label>
                                 <input
                                     class="multisteps-form__input form-control @error('nama_lengkap') is-invalid @enderror"
                                     type="text" placeholder="{{ __('Nama Lengkap') }}" autofocus name="nama_lengkap"
@@ -48,6 +59,7 @@
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="col-12 col-sm-6">
                                 <label>{{ __('Email') }}</label>
                                 <input class="multisteps-form__input form-control @error('email') is-invalid @enderror"
@@ -86,26 +98,28 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-12 col-sm-12">
-                                <label>{{ __('Role') }}</label>
-                                <select name="role" id="role"
-                                    class="form-control  @error('password_confirmation') is-invalid @enderror">
-                                    <option value="">{{ __('Select Role') }}</option>
-                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>
-                                        {{ __('Admin') }}</option>
-                                    <option value="pengajar" {{ $user->role == 'pengajar' ? 'selected' : '' }}>
-                                        {{ __('Pengajar') }}</option>
-                                    <option value="siswa" {{ $user->role == 'siswa' ? 'selected' : '' }}>
-                                        {{ __('Siswa') }}</option>
-                                </select>
-                                @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        @if (auth()->user()->role == 'admin')
+                            <div class="row mt-3">
+                                <div class="col-12 col-sm-12">
+                                    <label>{{ __('Role') }}</label>
+                                    <select name="role" id="role"
+                                        class="form-control  @error('password_confirmation') is-invalid @enderror">
+                                        <option value="">{{ __('Select Role') }}</option>
+                                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>
+                                            {{ __('Admin') }}</option>
+                                        <option value="pengajar" {{ $user->role == 'pengajar' ? 'selected' : '' }}>
+                                            {{ __('Pengajar') }}</option>
+                                        <option value="siswa" {{ $user->role == 'siswa' ? 'selected' : '' }}>
+                                            {{ __('Siswa') }}</option>
+                                    </select>
+                                    @error('role')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="button-row d-flex mt-4">
                             <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="submit"

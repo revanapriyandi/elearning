@@ -31,20 +31,21 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'username' => ['required', 'string', 'unique:users,username, ' . $id, 'max:255'],
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'unique:users,email, ' . $id, 'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'string']
         ]);
         $user = User::findOrFail($id);
         $user->update([
+            'username' => $request->username,
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role
+            'role' => $request->role ?? $user->role,
         ]);
 
-        return redirect()->route('user.index')->with('success', 'Data berhasil diubah');
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     public function destroy($id)

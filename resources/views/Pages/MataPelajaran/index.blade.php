@@ -20,9 +20,11 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode
-                                        Mata Pelajaran</th>
+                                    </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Mata Pelajaran</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
+                                        Pengajar</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
                                     </th>
                                 </tr>
@@ -36,10 +38,21 @@
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             <div class="d-flex text-sm">
-                                                <img class="w-10 ms-3" src="{{ $item->image_url }}"
+                                                <img class="w-10 ms-3 bg-primary" src="{{ $item->image_url }}"
                                                     alt="{{ $item->nama_mapel }}">
                                                 <h6 class="ms-3 my-auto text-sm">{{ $item->nama_mapel }}</h6>
                                             </div>
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            @php
+                                                $pengajar = \App\Models\Pengajar::where('mata_pelajaran_id', $item->id)->first();
+                                            @endphp
+                                            @if ($pengajar)
+                                                <a
+                                                    href="{{ route('pengajar.show', $pengajar->id) }}">{{ $pengajar->user->nama_lengkap }}</a>
+                                            @else
+                                                <span class="badge bg-gradient-warning">Belum Ada Pengajar</span>
+                                            @endif
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             <a href="{{ route('mapel.edit', $item->id) }}" class="nav-link ">
