@@ -25,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
         date_default_timezone_set('Asia/Jakarta');
 
         //aktifkan jika diperlukan
-        // if (env('APP_ENV') !== 'local') {
-        //     URL::forceScheme('https');
-        // }
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
     }
 }
