@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CbtController;
 use App\Http\Controllers\MataPelajaran;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\UserController;
@@ -12,10 +13,10 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\BankSoalController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PresensiController;
-use App\Http\Controllers\MataPelajaranController;
-use App\Http\Controllers\RuangDiskusiController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TahunAjaranController;
+use App\Http\Controllers\RuangDiskusiController;
+use App\Http\Controllers\MataPelajaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,4 +99,12 @@ Route::prefix('cbt')->middleware(['auth', 'pengajar'])->group(function () {
     Route::delete('/banksoal/soal/destroy/{id}', [SoalController::class, 'destroy'])->name('banksoal.soal.destroy');
     Route::get('/banksoal/soal/{id}/nilai', [SoalController::class, 'nilai'])->name('banksoal.soal.nilai');
     Route::get('/banksoal/{quiz}/soal/{id}/update', [SoalController::class, 'nilaiUpdate'])->name('banksoal.soal.update.nilai');
+});
+
+
+Route::get('setting/production', function () {
+    Artisan::call('config:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+    return redirect()->back()->with('success', 'Setting Production Success');
 });
