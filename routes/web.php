@@ -103,6 +103,7 @@ Route::prefix('cbt')->middleware(['auth', 'pengajar'])->group(function () {
 
 
 Route::get('setting/production', function () {
+    Artisan::call('storage:link');
     Artisan::call('config:cache');
     Artisan::call('route:cache');
     Artisan::call('view:cache');
