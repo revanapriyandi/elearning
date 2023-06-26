@@ -105,10 +105,11 @@
                 function submitForm(event) {
                     event.preventDefault();
 
-                    var btnSubmit = event.target;
-                    var form = btnSubmit.closest('form');
-                    var btnText = btnSubmit.querySelector('#btnText');
-                    var btnLoading = btnSubmit.querySelector('#btnLoading');
+
+                    var form = document.getElementById('updateForm');
+                    var btnSubmit = document.getElementById('btnSubmit');
+                    var btnText = document.getElementById('btnText');
+                    var btnLoading = document.getElementById('btnLoading');
 
                     btnSubmit.disabled = true;
                     btnText.classList.add('d-none');
