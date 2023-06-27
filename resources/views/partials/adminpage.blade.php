@@ -38,6 +38,11 @@
                 </table>
             </div>
         </div>
+        <div class="card widget-calendar mt-3">
+            <div class="card-body p-3">
+                <div id="calendar"></div>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="card">
@@ -74,3 +79,43 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+    <script>
+        fetch("https://raw.githubusercontent.com/guangrei/APIHariLibur_V2/main/calendar.json")
+            .then(response => response.json())
+            .then(data => {
+                var events = [];
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        events.push({
+                            title: data[key].description,
+                            start: key,
+                            color: '#c40026',
+                        });
+                    }
+                }
+
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    contentHeight: 'auto',
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        start: 'title',
+                        center: '',
+                        end: 'today prev,next'
+                    },
+                    selectable: true,
+                    editable: true,
+                    events: events,
+
+                    eventClick: function(info) {
+                        window.location.href = info.event.url;
+                    }
+                });
+
+                calendar.render();
+            });
+    </script>
+@endpush

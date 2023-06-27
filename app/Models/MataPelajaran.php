@@ -22,7 +22,17 @@ class MataPelajaran extends Model
     public function ImageUrl(): Attribute
     {
         return Attribute::get(function () {
-            return $this->image ? asset('storage/mapel/' . $this->image) : asset('storage/default.png');
+            return $this->image ? asset('storage/mapel/' . $this->image) : 'https://unair.ac.id/wp-content/uploads/2023/04/gambar1-19-1-1024x929.jpg';
         });
+    }
+
+    public function materi()
+    {
+        return $this->hasMany(Materi::class, 'mata_pelajaran_id');
+    }
+
+    public function tugasQuiz()
+    {
+        return $this->hasMany(TugasQuiz::class, 'mata_pelajaran_id');
     }
 }

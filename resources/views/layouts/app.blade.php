@@ -28,7 +28,7 @@
         href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/sl-1.6.2/datatables.min.css"
         rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.5') }}" rel="stylesheet" />
-    @stack('top-script')
+    @stack('style')
     <style>
         .async-hide {
             opacity: 0 !important

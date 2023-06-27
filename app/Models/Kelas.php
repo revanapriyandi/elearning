@@ -27,7 +27,7 @@ class Kelas extends Model
     public function ImageUrl(): Attribute
     {
         return Attribute::get(function () {
-            return $this->image ? asset('storage/kelas/' . $this->image) : asset('storage/default.png');
+            return $this->image ? asset('storage/uploads') . '/' .  $this->image : 'https://png.pngtree.com/thumb_back/fh260/background/20230315/pngtree-classroom-classroom-illustration-background-image_1948576.jpg';
         });
     }
 

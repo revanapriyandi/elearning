@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 26 Jun 2023 pada 04.49
+-- Waktu pembuatan: 27 Jun 2023 pada 19.09
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -110,10 +110,10 @@ INSERT INTO `jawaban_siswas` (`id`, `tugas_quiz_id`, `siswa_id`, `soal_id`, `pil
 
 CREATE TABLE `kelas` (
   `id` bigint UNSIGNED NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kode_kelas` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_kelas` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kompetensi_keahlian` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mapel` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -123,8 +123,9 @@ CREATE TABLE `kelas` (
 -- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `slug`, `kode_kelas`, `nama_kelas`, `kompetensi_keahlian`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'reguler', '61-RK', 'Reguler', 'Kelas Reguler', NULL, '2023-06-26 02:08:59', '2023-06-26 02:08:59');
+INSERT INTO `kelas` (`id`, `kode_kelas`, `nama_kelas`, `kompetensi_keahlian`, `mapel`, `image`, `created_at`, `updated_at`) VALUES
+(1, '61-RK', 'Reguler', 'Kelas Reguler', '1,3', NULL, '2023-06-26 02:08:59', '2023-06-27 16:33:34'),
+(3, '41-RK', 'Reguler', NULL, '1,3', '649b0cfc2a047_4b056c00-8634-11eb-8205-3fcce6da5103.png', '2023-06-27 16:07:11', '2023-06-27 16:23:24');
 
 -- --------------------------------------------------------
 
@@ -171,6 +172,57 @@ INSERT INTO `mata_pelajarans` (`id`, `kode_mapel`, `nama_mapel`, `deskripsi`, `i
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `materis`
+--
+
+CREATE TABLE `materis` (
+  `id` bigint UNSIGNED NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci,
+  `file` text COLLATE utf8mb4_unicode_ci,
+  `mata_pelajaran_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `materis`
+--
+
+INSERT INTO `materis` (`id`, `judul`, `slug`, `content`, `file`, `mata_pelajaran_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'Pendahuluan', 'pendahuluan', '<p>A. Pengantar Teori Bahasa dan Otomata</p>\r\n<p>Teori Bahasa dan Otomata merupakan cabang ilmu komputer yang mempelajari bahasa formal dan mesin abstrak yang dapat memproses bahasa tersebut. Bahasa formal adalah bahasa yang memiliki struktur dan aturan tertentu, sedangkan otomata adalah model matematika yang digunakan untuk menggambarkan mesin komputasi. Teori Bahasa dan Otomata memiliki peran penting dalam pengembangan kompilator, pemrosesan bahasa alami, dan desain perangkat lunak.</p>', '649b190c7ec62_649ae079130dc_Finite State Automata (FSA) dan Determinis Finite Automata (DFA) (1) (1).pptx', 1, 2, 0, '2023-06-27 17:14:57', '2023-06-27 17:14:57'),
+(4, 'Definisi Bahasa dan Otomata', 'definisi-bahasa-dan-otomata', '<ol style=\"list-style-type: none;\">\r\n<li>\r\n<p>Bahasa:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Dalam konteks teori bahasa dan otomata, bahasa merujuk pada kumpulan kata atau kalimat yang dibentuk dari suatu alfabet.</li>\r\n<li>Sebagai contoh, dalam bahasa Inggris, alfabetnya terdiri dari huruf-huruf A-Z.</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p>Otomata:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Otomata adalah model matematika yang digunakan untuk menggambarkan mesin abstrak yang dapat memproses bahasa formal.</li>\r\n<li>Otomata terdiri dari berbagai jenis, seperti otomata hingga, otomata tak hingga, dan mesin Turing.</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<p>C. Sejarah Perkembangan Teori Bahasa dan Otomata</p>\r\n<ol style=\"list-style-type: none;\">\r\n<li>\r\n<p>Awal Mula:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Teori Bahasa dan Otomata berkembang dari upaya para matematikawan dan logikawan pada abad ke-20 untuk memahami algoritma dan proses komputasi.</li>\r\n<li>Pada tahun 1936, Alan Turing mengemukakan konsep mesin Turing yang menjadi landasan dalam pengembangan otomata dan komputasi modern.</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p>Automata Formal:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Pada tahun 1950-an, John von Neumann, John McCarthy, dan Marvin Minsky berkontribusi dalam pengembangan teori automata formal.</li>\r\n<li>Automata formal, seperti automata hingga dan otomata tak hingga, digunakan untuk menganalisis sifat dan keterbatasan komputasi.</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p>Bahasa Formal:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Pada tahun 1956, Noam Chomsky memperkenalkan hierarki Chomsky, yang mengklasifikasikan bahasa formal menjadi tipe-tipe yang berbeda.</li>\r\n<li>Hierarki Chomsky mencakup bahasa regular, bahasa konteks bebas, bahasa konteks terbatas, dan bahasa rekursif tidak konteks.</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p>Keterkaitan dengan Kompilasi:</p>\r\n<ul style=\"list-style-type: disc;\">\r\n<li>Teori Bahasa dan Otomata memiliki keterkaitan erat dengan kompilasi, yaitu proses mengubah kode sumber menjadi kode mesin yang dapat dijalankan oleh komputer.</li>\r\n<li>Analisis bahasa formal dan otomata digunakan dalam fase parsing pada kompilasi untuk memastikan kesesuaian sintaksis program.</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<p>Materi selanjutnya akan membahas tipe-tipe bahasa formal, operasi pada bahasa, dan konsep-konsep terkait dalam teori bahasa dan otomata.</p>', '649b28e43f752_649b190c7ec62_649ae079130dc_Finite State Automata (FSA) dan Determinis Finite Automata (DFA) (1) (1) (1).pptx,649b28e79c9d6_649b190c7ec62_649ae079130dc_Finite State Automata (FSA) dan Determinis Finite Automata (DFA) (1) (1).pptx,649b28e98e020_649ae079130dc_Finite State Automata (FSA) dan Determinis Finite Automata (DFA) (1) (3).pptx', 1, 2, 0, '2023-06-27 17:15:28', '2023-06-27 18:22:34');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `materi_reads`
+--
+
+CREATE TABLE `materi_reads` (
+  `id` bigint UNSIGNED NOT NULL,
+  `materi_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `materi_reads`
+--
+
+INSERT INTO `materi_reads` (`id`, `materi_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(5, 3, 2, 1, '2023-06-27 17:16:18', '2023-06-27 17:16:18'),
+(6, 4, 2, 1, '2023-06-27 18:51:39', '2023-06-27 18:51:39'),
+(7, 3, 4, 1, '2023-06-27 19:04:26', '2023-06-27 19:04:26');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `migrations`
 --
 
@@ -208,7 +260,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2023_06_19_013149_create_kelas_tugas_quiz_table', 1),
 (22, '2023_06_21_005318_create_siswa_ujian_table', 1),
 (23, '2023_06_23_214940_add_tugas_quiz_id_on_jawaban_siswa_table', 1),
-(24, '2023_06_26_100605_add_status_to_presensis_table', 2);
+(24, '2023_06_26_100605_add_status_to_presensis_table', 2),
+(26, '2023_06_26_200001_create_kelas_mata_pelajarans_table', 4),
+(30, '2023_06_26_193653_create_materis_table', 5),
+(31, '2023_06_27_221227_create_materi_reads_table', 6),
+(32, '2023_06_27_224510_add_kelas_to_kelas_table', 7),
+(33, '2023_06_27_224510_add_mapel_to_kelas_table', 8);
 
 -- --------------------------------------------------------
 
@@ -299,7 +356,8 @@ CREATE TABLE `presensis` (
 --
 
 INSERT INTO `presensis` (`id`, `siswa_id`, `status`, `keterangan`, `latitude`, `longitude`, `location`, `created_at`, `updated_at`) VALUES
-(1, 1, 'hadir', '-', '-6.2291968', '106.807296', NULL, '2023-06-26 02:50:22', '2023-06-26 02:50:22');
+(1, 1, 'hadir', '-', '-6.2291968', '106.807296', NULL, '2023-06-26 02:50:22', '2023-06-26 02:50:22'),
+(2, 1, 'hadir', '-', '-6.22592', '106.8302336', NULL, '2023-06-27 19:04:39', '2023-06-27 19:04:39');
 
 -- --------------------------------------------------------
 
@@ -318,6 +376,13 @@ CREATE TABLE `ruang_diskusis` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `ruang_diskusis`
+--
+
+INSERT INTO `ruang_diskusis` (`id`, `slug`, `judul`, `content`, `mata_pelajaran_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'bagaimana-menghadapi-ujian-mendatang', 'Bagaimana Menghadapi ujian mendatang?', 'Bagaimana saya harus belajar untuk mendapatkan nilai tertinggi di kelas?', 1, 4, '2023-06-27 19:05:40', '2023-06-27 19:05:40');
+
 -- --------------------------------------------------------
 
 --
@@ -333,6 +398,14 @@ CREATE TABLE `ruang_diskusi_comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `ruang_diskusi_comments`
+--
+
+INSERT INTO `ruang_diskusi_comments` (`id`, `ruang_diskusi_id`, `user_id`, `content`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 'saya harap bantuannya :3', NULL, '2023-06-27 19:05:52', '2023-06-27 19:05:52'),
+(2, 1, 2, 'berlajar dengan giat 👍', NULL, '2023-06-27 19:07:02', '2023-06-27 19:07:02');
 
 -- --------------------------------------------------------
 
@@ -453,7 +526,7 @@ CREATE TABLE `tahun_ajarans` (
 --
 
 INSERT INTO `tahun_ajarans` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, '2023/2024', '1', '2023-06-26 01:51:33', '2023-06-26 01:58:56'),
+(1, '2023/2024', '1', '2023-06-26 01:51:33', '2023-06-26 05:35:39'),
 (2, '2022/2023', '0', '2023-06-26 01:58:44', '2023-06-26 01:58:52');
 
 -- --------------------------------------------------------
@@ -518,9 +591,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `nama_lengkap`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `no_hp`, `alamat`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'Administrator', NULL, NULL, NULL, NULL, NULL, 'admin@E-LearningPlatform(PJ).com', '2023-06-26 01:08:30', '$2y$10$MUegnSmXvsGgOpqbnt4GWOLPUWAmEJypw7VjKLuI7D38zlgm1aXHe', 'admin', 'cbofIo6Ode', '2023-06-26 01:08:30', '2023-06-26 04:31:09', NULL),
-(2, NULL, 'Pengajar', NULL, NULL, NULL, '082177722', 'Jakarta Timur', 'pengajar@gmail.com', NULL, '$2y$10$9bBeg4oqkylZ01nq1XBHtuffIEltsY/hWO.5QuvJ2vhJyaFTxAxmC', 'pengajar', NULL, '2023-06-26 02:09:26', '2023-06-26 02:09:26', NULL),
-(4, 'siswa', 'Siswa', 'P', NULL, '2002-04-25', '08212222444', 'Jakarta', 'siswa@gmail.com', NULL, '$2y$10$cAt.hl2h.P2nQLI/zkgtFegOhjijkH67AhLo7D6DBS8q10bpGiRXO', 'siswa', NULL, '2023-06-26 02:23:38', '2023-06-26 04:33:03', NULL);
+(1, 'admin', 'Administrator', NULL, NULL, NULL, NULL, NULL, 'admin@E-LearningPlatform(PJ).com', '2023-06-26 01:08:30', '$2a$12$97VsScImxHPXyu.ldwqvOecMKZdkQlirnwVt6YYkuZfxV/eZdjycG', 'admin', 'xRTrlkRSJldqWucxpwodwGtAzqXZEiwegAfLFJ7sQcsn55l33eHXiY2H11OE', '2023-06-26 01:08:30', '2023-06-26 04:31:09', NULL),
+(2, 'pengajar', 'Pengajar', NULL, NULL, NULL, '082177722', 'Jakarta Timur', 'pengajar@gmail.com', NULL, '$2y$10$uy/sd2RjuUB/KgK9zMjCY.2BnzUwe6WZdERy9labwEaoZjX3.7jSO', 'pengajar', NULL, '2023-06-26 02:09:26', '2023-06-26 05:35:51', NULL),
+(4, 'siswa', 'Siswa', 'P', NULL, '2002-04-25', '08212222444', 'Jakarta', 'siswa@gmail.com', NULL, '$2y$10$uy/sd2RjuUB/KgK9zMjCY.2BnzUwe6WZdERy9labwEaoZjX3.7jSO', 'siswa', NULL, '2023-06-26 02:23:38', '2023-06-27 17:00:49', NULL);
 
 --
 -- Indexes for dumped tables
@@ -553,8 +626,7 @@ ALTER TABLE `jawaban_siswas`
 -- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kelas_slug_unique` (`slug`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `kelas_tugas_quiz`
@@ -568,6 +640,23 @@ ALTER TABLE `kelas_tugas_quiz`
 --
 ALTER TABLE `mata_pelajarans`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `materis`
+--
+ALTER TABLE `materis`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `materis_slug_unique` (`slug`),
+  ADD KEY `materis_mata_pelajaran_id_foreign` (`mata_pelajaran_id`),
+  ADD KEY `materis_user_id_foreign` (`user_id`);
+
+--
+-- Indeks untuk tabel `materi_reads`
+--
+ALTER TABLE `materi_reads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `materi_reads_materi_id_foreign` (`materi_id`),
+  ADD KEY `materi_reads_user_id_foreign` (`user_id`);
 
 --
 -- Indeks untuk tabel `migrations`
@@ -709,7 +798,7 @@ ALTER TABLE `jawaban_siswas`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `mata_pelajarans`
@@ -718,16 +807,28 @@ ALTER TABLE `mata_pelajarans`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT untuk tabel `materis`
+--
+ALTER TABLE `materis`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `materi_reads`
+--
+ALTER TABLE `materi_reads`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajars`
 --
 ALTER TABLE `pengajars`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -739,19 +840,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `presensis`
 --
 ALTER TABLE `presensis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruang_diskusis`
 --
 ALTER TABLE `ruang_diskusis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruang_diskusi_comments`
 --
 ALTER TABLE `ruang_diskusi_comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `semesters`
@@ -769,7 +870,7 @@ ALTER TABLE `siswas`
 -- AUTO_INCREMENT untuk tabel `siswa_ujian`
 --
 ALTER TABLE `siswa_ujian`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `soals`
@@ -787,7 +888,7 @@ ALTER TABLE `tahun_ajarans`
 -- AUTO_INCREMENT untuk tabel `tugas_quizzes`
 --
 ALTER TABLE `tugas_quizzes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -819,6 +920,20 @@ ALTER TABLE `jawaban_siswas`
 ALTER TABLE `kelas_tugas_quiz`
   ADD CONSTRAINT `kelas_tugas_quiz_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `kelas_tugas_quiz_tugas_quiz_id_foreign` FOREIGN KEY (`tugas_quiz_id`) REFERENCES `tugas_quizzes` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `materis`
+--
+ALTER TABLE `materis`
+  ADD CONSTRAINT `materis_mata_pelajaran_id_foreign` FOREIGN KEY (`mata_pelajaran_id`) REFERENCES `mata_pelajarans` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `materis_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `materi_reads`
+--
+ALTER TABLE `materi_reads`
+  ADD CONSTRAINT `materi_reads_materi_id_foreign` FOREIGN KEY (`materi_id`) REFERENCES `materis` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `materi_reads_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `pengajars`

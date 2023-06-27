@@ -23,6 +23,8 @@
                                         Kelas</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Kelas</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mata
+                                        Pelajaran</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
                                     </th>
                                 </tr>
@@ -40,6 +42,16 @@
                                                     alt="{{ $item->nama_kelas }}">
                                                 <h6 class="ms-3 my-auto text-sm">{{ $item->nama_kelas }}</h6>
                                             </div>
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            @php
+                                                $mapel = App\Models\MataPelajaran::whereIn('id', explode(',', $item->mapel))->get();
+                                            @endphp
+                                            @foreach ($mapel as $m)
+                                                <span
+                                                    class="badge badge-pill bg-gradient-primary">{{ $m->nama_mapel }}</span>
+                                            @endforeach
+
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             <a href="{{ route('kelas.edit', $item->id) }}" class="nav-link ">
@@ -140,6 +152,23 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            @php
+                                $mapel = App\Models\MataPelajaran::all();
+                            @endphp
+                            <select name="mapel[]" id="mapel"
+                                class="form-control form-control-lg select2 @error('mapel') is-invalid @enderror" required
+                                multiple>
+                                @foreach ($mapel as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_mapel }}</option>
+                                @endforeach
+                            </select>
+                            @error('mapel')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <input type="file" class="form-control form-control-lg @error('images') is-invalid @enderror"
                                 id="images" name="images" placeholder="{{ __('Image (opsional)') }}">
                             <small class="text-xs">{{ __('Image cover (opsional)') }}</small>
@@ -164,7 +193,8 @@
                             <button class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0" type="submit" id="btnSubmit"
                                 onclick="submitForm(event)">
                                 <span id="btnLoading" class="d-none">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
                                     {{ __('Loading...') }}
                                 </span>
                                 <span id="btnText">{{ __('Tambah Kelas') }}</span>
@@ -194,3 +224,20 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Pilih Mata Pelajaran',
+                theme: 'bootstrap-5'
+            });
+        });
+    </script>
+@endpush

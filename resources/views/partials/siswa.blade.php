@@ -66,36 +66,54 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
     <script>
-        var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-            contentHeight: 'auto',
-            initialView: "dayGridMonth",
-            headerToolbar: {
-                start: 'title',
-                center: '',
-                end: 'today prev,next'
-            },
-            selectable: true,
-            editable: true,
-            events: [
-                @foreach ($ujian as $item)
-                    {
-                        title: "{{ $item->tugasQuiz->judul }}",
-                        start: "{{ $item->tugasQuiz->waktu_mulai }}",
-                        end: "{{ $item->tugasQuiz->waktu_berakhir }}",
-                        color: "#{{ substr(md5($item->tugasQuiz->id), 0, 6) }}",
-                        url: "{{ route('mod.update', ['id' => ':id', 'status' => 'belum']) }}".replace(':id',
-                            "{{ $item->tugasQuiz->id }}")
+        fetch("https://raw.githubusercontent.com/guangrei/APIHariLibur_V2/main/calendar.json")
+            .then(response => response.json())
+            .then(data => {
+                var events = [];
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        events.push({
+                            title: data[key].description,
+                            start: key,
+                            color: '#c40026',
+                        });
+                    }
+                }
+
+                @php
+                    $examEvents = [];
+                    foreach ($ujian as $item) {
+                        $examEvents[] = [
+                            'title' => $item->tugasQuiz->judul,
+                            'start' => $item->tugasQuiz->waktu_mulai,
+                            'end' => $item->tugasQuiz->waktu_berakhir,
+                            'color' => '#' . substr(md5($item->tugasQuiz->id), 0, 6),
+                            'url' => route('banksoal'),
+                        ];
+                    }
+                @endphp
+
+                var allEvents = events.concat(@json($examEvents));
+
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    contentHeight: 'auto',
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        start: 'title',
+                        center: '',
+                        end: 'today prev,next'
                     },
-                @endforeach
-            ],
-            eventClick: function(info) {
-                // Tindakan yang dilakukan saat event di-klik
-                // Contoh: Redirect ke halaman detail tugas quiz
-                window.location.href = info.event.url;
-            }
-        });
+                    selectable: true,
+                    editable: true,
+                    events: allEvents,
 
+                    eventClick: function(info) {
+                        window.location.href = info.event.url;
+                    }
+                });
 
-        calendar.render();
+                calendar.render();
+            });
     </script>
 @endpush

@@ -21,13 +21,14 @@ class KelasController extends Controller
             'kode_kelas' => ['required', 'string', 'max:10', 'min:3'],
             'nama_kelas' => ['required', 'string', 'min:3'],
             'kompetensi_keahlian' => ['nullable', 'string'],
+            'mapel' => ['required', 'array'],
         ]);
 
         $kelas = Kelas::create([
-            'slug' => Str::slug($request->nama_kelas),
             'kode_kelas' => $request->kode_kelas,
             'nama_kelas' => $request->nama_kelas,
             'kompetensi_keahlian' => $request->kompetensi_keahlian,
+            'mapel' => is_array($request->mapel) ? implode(',', $request->mapel) : $request->mapel,
         ]);
 
         if ($request->hasFile('images')) {
@@ -35,10 +36,18 @@ class KelasController extends Controller
                 'images' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png,webp'],
             ]);
 
-            $image = $request->file('images');
-            $image->storeAs('public/kelas', $request->kode_kelas . '.' . $image->extension());
+            $path = storage_path('app/public/uploads');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            $file = $request->file('images');
+            $name = uniqid() . '_' . trim($file->getClientOriginalName());
+            $file->move($path, $name);
+
             $kelas->update([
-                'image' => $request->kode_kelas . '.' . $image->extension(),
+                'image' => $name,
             ]);
         }
 
@@ -58,13 +67,14 @@ class KelasController extends Controller
             'kode_kelas' => ['required', 'string', 'max:10', 'min:3'],
             'nama_kelas' => ['required', 'string', 'min:3'],
             'kompetensi_keahlian' => ['nullable', 'string'],
+            'mapel' => ['required', 'array'],
         ]);
 
         $kelas->update([
-            'slug' => Str::slug($request->nama_kelas),
             'kode_kelas' => $request->kode_kelas,
             'nama_kelas' => $request->nama_kelas,
             'kompetensi_keahlian' => $request->kompetensi_keahlian,
+            'mapel' => is_array($request->mapel) ? implode(',', $request->mapel) : $request->mapel,
         ]);
 
         if ($request->hasFile('images')) {
@@ -72,14 +82,17 @@ class KelasController extends Controller
                 'images' => ['required', 'image', 'max:2048', 'mimes:jpg,jpeg,png,webp'],
             ]);
 
-            if ($kelas->image != null) {
-                unlink(storage_path('app/public/kelas/' . $kelas->image));
+            $path = storage_path('app/public/uploads');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
             }
 
-            $image = $request->file('images');
-            $image->storeAs('public/kelas', $request->kode_kelas . '.' . $image->extension());
+            $file = $request->file('images');
+            $name = uniqid() . '_' . trim($file->getClientOriginalName());
+            $file->move($path, $name);
+
             $kelas->update([
-                'image' => $request->kode_kelas . '.' . $image->extension(),
+                'image' => $name,
             ]);
         }
 

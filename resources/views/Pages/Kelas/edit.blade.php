@@ -75,6 +75,30 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 col-sm-12">
+                                @php
+                                    $mapel = App\Models\MataPelajaran::all();
+                                    $kelasMapel = explode(',', $kelas->mapel);
+                                @endphp
+                                <label>{{ __('Mata Pelajaran') }}</label>
+                                <select name="mapel[]" id="mapel"
+                                    class="form-control form-control-lg select2 @error('mapel') is-invalid @enderror"
+                                    required multiple>
+                                    @foreach ($mapel as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if (in_array($item->id, $kelasMapel)) selected @endif>
+                                            {{ $item->nama_mapel }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('mapel')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-sm-12">
                                 <label>{{ __('Kompetensi keahlian') }}</label>
                                 <textarea name="kompetensi_keahlian" id="kompetensi_keahlian"
                                     class="multisteps-form__input form-control @error('kompetensi_keahlian') is-invalid @enderror" cols="10"
@@ -102,7 +126,21 @@
             </div>
         </div>
         @push('scripts')
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
             <script>
+                $(document).ready(function() {
+                    $('.select2').select2({
+                        placeholder: 'Pilih Mata Pelajaran',
+                        theme: 'bootstrap-5'
+                    });
+                });
+
                 function submitForm(event) {
                     event.preventDefault();
 

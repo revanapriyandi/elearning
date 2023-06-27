@@ -41,7 +41,7 @@ class UserController extends Controller
             'username' => $request->username,
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => $request->password != null ? bcrypt($request->password) : $user->password,
             'role' => $request->role ?? $user->role,
         ]);
 

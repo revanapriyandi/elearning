@@ -19,92 +19,23 @@
                     <span class="nav-link-text ms-1">{{ __('Dashboards') }}</span>
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Materi Pelajaran
+                </h6>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('materi') }}" class="nav-link {{ request()->is('materi*') ? 'active' : '' }}">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-file-powerpoint text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">{{ __('Materi') }}</span>
+                </a>
+            </li>
 
             @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">MASTER DATA</h6>
-                </li>
-            @endif
-            @if (auth()->user()->role == 'admin')
-                <li class="nav-item">
-                    <a href="{{ route('semester.index') }}"
-                        class="nav-link {{ request()->is('masterdata/semester*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-sharp fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Semester') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('tahun-ajaran.index') }}"
-                        class="nav-link {{ request()->is('masterdata/tahun-ajaran*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-calendar-days text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Tahun Ajaran') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('kelas') }}"
-                        class="nav-link {{ request()->is('masterdata/kelas*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa fa-landmark text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Kelas') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('mapel.index') }}"
-                        class="nav-link {{ request()->is('masterdata/mapel*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa fa-object-group text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Mata Pelajaran') }}</span>
-                    </a>
-                </li>
-            @endif
-            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
-                <li class="nav-item">
-                    <a href="{{ route('siswa.index') }}"
-                        class="nav-link {{ request()->is('masterdata/siswa*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Siswa') }}</span>
-                    </a>
-                </li>
-            @endif
-            @if (auth()->user()->role == 'admin')
-                <li class="nav-item">
-                    <a href="{{ route('pengajar.index') }}"
-                        class="nav-link {{ request()->is('masterdata/pengajar*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-chalkboard-user text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Pengajar') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('user.index') }}"
-                        class="nav-link {{ request()->is('masterdata/user*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa fa-users text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Users') }}</span>
-                    </a>
-                </li>
-            @endif
-
-            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Computer Based Test (CBT)
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Computer Based Test
+                        (CBT)
                     </h6>
                 </li>
                 <li class="nav-item">
@@ -200,6 +131,87 @@
                     <span class="nav-link-text ms-1">{{ __('Ruang Diskusi') }}</span>
                 </a>
             </li>
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">MASTER DATA</h6>
+                </li>
+            @endif
+            @if (auth()->user()->role == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('semester.index') }}"
+                        class="nav-link {{ request()->is('masterdata/semester*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-sharp fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Semester') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('tahun-ajaran.index') }}"
+                        class="nav-link {{ request()->is('masterdata/tahun-ajaran*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-calendar-days text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Tahun Ajaran') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('kelas') }}"
+                        class="nav-link {{ request()->is('masterdata/kelas*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-landmark text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Kelas') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{{ route('mapel.index') }}"
+                        class="nav-link {{ request()->is('masterdata/mapel*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-object-group text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Mata Pelajaran') }}</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
+                <li class="nav-item">
+                    <a href="{{ route('siswa.index') }}"
+                        class="nav-link {{ request()->is('masterdata/siswa*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Siswa') }}</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->role == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('pengajar.index') }}"
+                        class="nav-link {{ request()->is('masterdata/pengajar*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-chalkboard-user text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Pengajar') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}"
+                        class="nav-link {{ request()->is('masterdata/user*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-users text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Users') }}</span>
+                    </a>
+                </li>
+            @endif
             {{-- @if (auth()->user()->role == 'admin')
                 <li class="nav-item mt-3">
                     <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">SITE ADMINISTRATION</h6>

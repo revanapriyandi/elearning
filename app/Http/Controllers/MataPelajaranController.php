@@ -108,4 +108,11 @@ class MataPelajaranController extends Controller
 
         return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil dihapus');
     }
+
+    public function mapelKelas()
+    {
+        return view('Pages.MataPelajaran.mapel-kelas', [
+            'mapel' => MataPelajaran::all(),
+        ]);
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\SoalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\BankSoalController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PresensiController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RuangDiskusiController;
 use App\Http\Controllers\MataPelajaranController;
+use App\Http\Controllers\UploaderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,10 @@ Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+    Route::post('uploads', [UploaderController::class, 'uploads'])->name('uploads');
+    Route::get('download/{file}', [UploaderController::class, 'download'])->name('download');
+    Route::delete('delete/{file}', [UploaderController::class, 'delete'])->name('file.delete');
+
     Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi');
     Route::post('/presensi/store', [PresensiController::class, 'store'])->name('presensi.store');
 
@@ -47,6 +53,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ruangdiskusi/store', [RuangDiskusiController::class, 'store'])->name('ruangdiskusi.store');
     Route::get('/ruangdiskusi/{ruangdiskusi}', [RuangDiskusiController::class, 'show'])->name('ruangdiskusi.show');
     Route::post('/ruangdiskusi/{id}/comment', [RuangDiskusiController::class, 'comment'])->name('ruangdiskusi.comment');
+
+    Route::get('/materi', [MateriController::class, 'index'])->name('materi');
+    Route::get('/materi/{id}/create', [MateriController::class, 'create'])->name('materi.create');
+    Route::get('/materi/{id}/show', [MateriController::class, 'show'])->name('materi.show');
+    Route::post('/materi/{id}/store', [MateriController::class, 'store'])->name('materi.store');
+    Route::get('/materi/{id}/read', [MateriController::class, 'read'])->name('materi.read');
+    Route::get('/materi/{id}/edit', [MateriController::class, 'edit'])->name('materi.edit');
+    Route::put('/materi/{id}/update', [MateriController::class, 'update'])->name('materi.update');
+    Route::post('/materi/{id}/destroy', [MateriController::class, 'destroy'])->name('materi.delete');
+    Route::post('/materi/{id}/{file}/file', [MateriController::class, 'deleteFile'])->name('materi.file.delete');
 });
 
 Route::prefix('masterdata')->middleware(['auth'])->group(function () {
@@ -61,6 +77,7 @@ Route::prefix('masterdata')->middleware(['auth'])->group(function () {
         Route::resource('pengajar', PengajarController::class);
 
         Route::resource('mapel', MataPelajaranController::class, ['except' => ['show', 'create']]);
+        Route::get('mapel/kelas', [MataPelajaranController::class, 'mapelKelas'])->name('mapel.kelas');
     });
     Route::resource('siswa', SiswaController::class, ['except' => ['show']])->middleware('pengajar');
     Route::resource('user', UserController::class);
