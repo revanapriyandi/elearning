@@ -39,15 +39,10 @@
                     <div class="col-lg-6 col-md-7 mx-auto text-center">
                         <h1 class="display-1 text-bolder text-primary">@yield('code')</h1>
                         <h2>@yield('message')/h2>
-                            @if ($code == 419)
-                                <a href="{{ route('login') }}" class="btn bg-gradient-dark mt-4 animate-hover">Login</a>
-                            @elseif ($code == 404)
-                                <a href="{{ route('home') }}" class="btn bg-gradient-dark mt-4 animate-hover">Home</a>
-                            @elseif($code == 503)
-                                <p class="lead">Silahkan hubungi admin.</p>
-                                <a href="https://revanapriyandi.tech/"
-                                    class="btn bg-gradient-dark mt-4  animate-hover">Chat Admin</a>
-                            @endif
+
+                            <p class="lead">Silahkan hubungi admin.</p>
+                            <a href="https://revanapriyandi.tech/" class="btn bg-gradient-dark mt-4  animate-hover">Chat
+                                Admin</a>
                     </div>
                 </div>
             </div>
