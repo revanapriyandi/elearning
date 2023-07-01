@@ -127,7 +127,7 @@ Route::get('setting/production', function () {
     return redirect()->back()->with('success', 'Setting Production Success');
 });
 
-Route::get('setting/up', function () {
-    Artisan::call('up');
-    return redirect()->route('login')->with('success', 'Setting Up Success');
+Route::get('setting/down', function () {
+    Artisan::call('down');
+    return redirect()->route('login')->with('success', 'Setting down Success');
 });
