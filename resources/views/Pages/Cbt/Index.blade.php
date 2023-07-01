@@ -75,7 +75,7 @@
                                         <img src="{{ $data->mapel->image_url }}" alt="{{ $data->judul }}">
                                     </div>
                                     <div class="ms-3 my-auto ">
-                                        <h6><a href="{{ route('mod.soal', $data->id) }}">{{ $data->judul }}</a></h6>
+                                        <h6><a href="#">{{ $data->judul }}</a></h6>
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dropdown">
