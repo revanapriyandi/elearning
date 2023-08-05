@@ -46,11 +46,6 @@ class Siswa extends Model
         return $this->belongsTo(TahunAjaran::class);
     }
 
-    public function semester()
-    {
-        return $this->belongsTo(Semester::class);
-    }
-
     public function presensi()
     {
         return $this->hasMany(Presensi::class, 'siswa_id');

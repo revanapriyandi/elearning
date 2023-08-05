@@ -30,11 +30,17 @@
                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                 <label>{{ __('Jenis Ujian') }}</label>
                                 <select name="jenis_ujian" id="jenis_ujian"
-                                    class="form-control  @error('jenis_ujian') is-invalid @enderror">
-                                    <option value="quiz" {{ old('jenis_ujian') == 'quiz' ? 'selected' : '' }}>
-                                        {{ __('Quiz (Pilihan Ganda, True/False, Isian)') }}</option>
-                                    <option value="tugas" {{ old('jenis_ujian') == 'tugas' ? 'selected' : '' }}>
-                                        {{ __('Tugas (Upload File)') }}</option>
+                                    class="form-control @error('jenis_ujian') is-invalid @enderror">
+
+                                    @if (Str::contains(URL::previous(), 'ujian'))
+                                        <option value="ujian" {{ old('jenis_ujian') == 'ujian' ? 'selected' : '' }}>
+                                            {{ __('Ujian') }}</option>
+                                    @else
+                                        <option value="quiz" {{ old('jenis_ujian') == 'quiz' ? 'selected' : '' }}>
+                                            {{ __('Quiz (Pilihan Ganda, True/False, Isian)') }}</option>
+                                        <option value="tugas" {{ old('jenis_ujian') == 'tugas' ? 'selected' : '' }}>
+                                            {{ __('Tugas (Upload File)') }}</option>
+                                    @endif
                                 </select>
                                 @error('jenis_ujian')
                                     <span class="invalid-feedback" role="alert">
@@ -42,6 +48,7 @@
                                     </span>
                                 @enderror
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-6">

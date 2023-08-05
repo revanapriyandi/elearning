@@ -27,6 +27,7 @@ class TahunAjaranController extends Controller
         $request->validate([
             'tahun1' => ['required', 'max:20'],
             'tahun2' => ['required', 'max:20'],
+            'semester' => ['required', 'in:genap,ganjil'],
             'status' => ['required', 'in:0,1']
         ]);
 
@@ -38,6 +39,7 @@ class TahunAjaranController extends Controller
         $name = $request->tahun1 . '/' . $request->tahun2;
         TahunAjaran::create([
             'name' => $name,
+            'semester' => $request->semester,
             'status' => $request->status
         ]);
 
@@ -50,6 +52,7 @@ class TahunAjaranController extends Controller
         $request->validate([
             'tahun1' => ['required', 'max:20'],
             'tahun2' => ['required', 'max:20'],
+            'semester' => ['required', 'in:genap,ganjil'],
             'status' => ['required', 'in:0,1']
         ]);
 
@@ -62,6 +65,7 @@ class TahunAjaranController extends Controller
         $name = $request->tahun1 . '/' . $request->tahun2;
         $data->update([
             'name' => $name,
+            'semester' => $request->semester,
             'status' => $request->status
         ]);
 

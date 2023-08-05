@@ -13,8 +13,8 @@
     @endif
     @if (auth()->user()->role == 'siswa')
         @include('partials.siswa')
-    @elseif(auth()->user()->role == 'pengajar')
-        @include('partials.pengajar')
+    @elseif(auth()->user()->role == 'guru')
+        @include('partials.guru')
     @elseif(auth()->user()->role == 'admin')
         @include('partials.adminpage')
     @endif

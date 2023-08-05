@@ -22,6 +22,9 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tahun
                                         Ajaran
                                     </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Semester
+                                    </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tahun
                                         Status
                                     </th>
@@ -35,6 +38,9 @@
                                         <td class="text-sm font-weight-normal">{{ $index + 1 }}</td>
                                         <td class="text-sm font-weight-normal">
                                             {{ $item->name }}
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            {{ $item->semester }}
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             <span
@@ -120,12 +126,13 @@
                     <form action="{{ route('tahun-ajaran.store') }}" method="POST"" id="tahunAjaranForm">
                         @csrf
                         <div class="row">
+                            <label>{{ __('Tahun Ajaran') }}</label>
                             <div class="col-md-5">
                                 <div class="mb-3">
                                     <input type="text"
                                         class="date-own form-control @error('tahun1') is-invalid @enderror"
-                                        placeholder="Tahun Ajaran" name="tahun1" id="tahun1" value="{{ old('tahun1') }}"
-                                        pattern="[0-9]{4}" maxlength="4" minlength="4"
+                                        placeholder="Tahun Ajaran" name="tahun1" id="tahun1"
+                                        value="{{ old('tahun1') }}" pattern="[0-9]{4}" maxlength="4" minlength="4"
                                         title="Masukkan tahun dengan format empat digit (misalnya: 2022)">
                                     @error('tahun1')
                                         <span class="invalid-feedback" role="alert">
@@ -154,25 +161,48 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <select class="form-control @error('status') is-invalid @enderror" name="status"
-                                id="status">
-                                <option value="" selected disabled>-- Pilih Status --</option>
-                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" {{ old('status') == '2' ? 'selected' : '' }}>Tidak Aktif</option>
-                            </select>
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ __('Semester') }}</label>
+                                <div class="mb-3">
+                                    <select class="form-control @error('semester') is-invalid @enderror" name="semester"
+                                        id="semester">
+                                        <option value="genap" {{ old('semester') == 'genap' ? 'selected' : '' }}>Genap
+                                        </option>
+                                        <option value="ganjil" {{ old('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil
+                                        </option>
+                                    </select>
+                                    @error('semester')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>{{ __('Status') }}</label>
+                                <div class="mb-3 ">
+                                    <select class="form-control @error('status') is-invalid @enderror" name="status"
+                                        id="status">
+                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="0" {{ old('status') == '2' ? 'selected' : '' }}>Tidak Aktif
+                                        </option>
+                                    </select>
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
                         <div class="text-center">
                             <button class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0" type="submit" id="btnSubmit"
                                 onclick="submitForm(event)">
                                 <span id="btnLoading" class="d-none">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
                                     {{ __('Loading...') }}
                                 </span>
                                 <span id="btnText">{{ __('Simpan') }}</span>
@@ -207,11 +237,23 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js">
     </script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <script>
         $('.date-own').datepicker({
             minViewMode: 2,
             format: 'yyyy',
             autoclose: true
+        });
+
+        $(document).ready(function() {
+            $('select').select2({
+                theme: 'bootstrap-5'
+            });
         });
     </script>
 @endpush

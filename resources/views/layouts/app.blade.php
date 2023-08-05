@@ -94,8 +94,11 @@
     <script
         src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/sl-1.6.2/datatables.min.js">
     </script>
-    <script src="https://cdn.tiny.cloud/1/22ggrcqb6va20uggnc5m53g9xj11lpdz09eho2u3e3urpzgt/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+
+    {{-- ubah dengan cdn premium jika memiliki --}}
+    {{-- <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script> --}}
+    <script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js">
+    </script>
 
     <script src="{{ asset('assets/js/plugins/dragula/dragula.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/jkanban/jkanban.js') }}"></script>

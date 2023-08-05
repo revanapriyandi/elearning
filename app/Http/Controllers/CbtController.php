@@ -59,7 +59,7 @@ class CbtController extends Controller
             'jawaban' => ['required']
         ]);
 
-        if ($request->jenis == 'quiz') {
+        if ($request->jenis != 'tugas') {
 
             $soal = Soal::where('id', $id)->first();
             if ($soal->jenis == 'pilihan_ganda' || $soal->jenis == 'benar_salah') {
@@ -71,10 +71,12 @@ class CbtController extends Controller
                 }
                 $jawaban = JawabanSiswa::updateOrCreate([
                     'siswa_id' => auth()->user()->siswa->id,
+                    'tugas_quiz_id' => $soal->tugas_quiz_id,
                     'soal_id' => $id,
                 ], [
                     'siswa_id' => auth()->user()->siswa->id,
                     'soal_id' => $id,
+                    'tugas_quiz_id' => $soal->tugas_quiz_id,
                     'pilihan_jawaban' => $request->jawaban[0],
                     'is_benar' => $benar ?? 0,
                     'is_terkoreksi' => 1,
@@ -85,15 +87,19 @@ class CbtController extends Controller
                 $jawaban = JawabanSiswa::updateOrCreate([
                     'siswa_id' => auth()->user()->siswa->id,
                     'soal_id' => $id,
+                    'tugas_quiz_id' => $soal->tugas_quiz_id,
                 ], [
                     'siswa_id' => auth()->user()->siswa->id,
                     'soal_id' => $id,
+                    'tugas_quiz_id' => $soal->tugas_quiz_id,
                     'jawaban_soal' => $request->jawaban[0],
                 ]);
             }
 
-            if ($request->datano == $request->totalsoal || $request->datano == $request->totalsoal - 1) {
-                $benar = JawabanSiswa::where('siswa_id', auth()->user()->siswa->id)->where('is_benar', 1)->count();
+            if ($request->datano == $request->totalsoal - 1) {
+                $benar = JawabanSiswa::where('siswa_id', auth()->user()->siswa->id)
+                    ->where('tugas_quiz_id', $soal->tugas_quiz_id)
+                    ->where('is_benar', true)->count();
                 $jumlah_soal = Soal::where('tugas_quiz_id', $soal->tugas_quiz_id)->count();
                 SiswaUjian::updateOrCreate([
                     'siswa_id' => auth()->user()->siswa->id,
@@ -105,7 +111,8 @@ class CbtController extends Controller
                     'durasi' => '60',
                     'nilai' => ($benar / $jumlah_soal) * 100,
                     'benar' => $benar,
-                    'salah' => JawabanSiswa::where('siswa_id', auth()->user()->siswa->id)->where('is_benar', 0)->count(),
+                    'salah' => JawabanSiswa::where('siswa_id', auth()->user()->siswa->id)
+                        ->where('tugas_quiz_id', $soal->tugas_quiz_id)->where('is_benar', false)->count(),
                     'status' => 'selesai',
                 ]);
 
@@ -156,7 +163,7 @@ class CbtController extends Controller
         $i = $request->get('no') ?? 0;
         $soal = null;
 
-        if ($data->jenis == 'quiz') {
+        if ($data->jenis != 'tugas') {
             $soal = $data->soal[$i];
         }
 

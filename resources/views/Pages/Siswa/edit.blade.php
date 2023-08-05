@@ -139,33 +139,11 @@
                                     @foreach ($tahun_ajaran as $item)
                                         <option value="{{ $item->id }}"
                                             @if ($siswa->tahun_ajaran_id == $item->id) selected @endif>
-                                            {{ $item->name }}
+                                            {{ $item->name }} / Semester {{ $item->semester }}
                                         </option>
                                     @endforeach
                                 </select>
                                 @error('tahun_ajaran')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label>{{ __('Semester') }}</label>
-                                <select
-                                    class="multisteps-form__select form-control @error('semester') is-invalid @enderror"
-                                    name="semester" required>
-                                    <option value="" selected disabled>Semester</option>
-                                    @php
-                                        $semester = App\Models\Semester::all();
-                                    @endphp
-                                    @foreach ($semester as $item)
-                                        <option value="{{ $item->id }}"
-                                            @if ($siswa->semester_id == $item->id) selected @endif>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('semester')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

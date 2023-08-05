@@ -91,7 +91,7 @@
                                         <td>
                                             <span class="badge badge-dot me-4">
                                                 <i class="bg-info"></i>
-                                                <span class="text-dark text-xs">{{ $item->semester->name }}</span>
+                                                <span class="text-dark text-xs">{{ $item->tahunAjaran->semester }}</span>
                                             </span>
                                         </td>
                                         <td class="align-middle text-center text-sm">

@@ -58,119 +58,257 @@
         </div>
     </div>
     <div class="container-fluid py-4">
-        <section class="py-3">
-            <div class="row">
-                <div class="col-md-8 me-auto text-left">
-                    <h5>{{ __('Daftar Ujian') }}</h5>
-                    <p>{{ __('Ujian yang sedang diselenggarakan pada hari ini.') }}</p>
+        @if ($datas)
+            <section class="py-3">
+                <div class="row">
+                    <div class="col-md-8 me-auto text-left">
+                        <h5>{{ __('Daftar Ujian') }}</h5>
+                        <p>{{ __('Ujian yang sedang diselenggarakan pada hari ini.') }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-lg-4 mt-2">
-                @forelse ($datas as $data)
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body p-3">
-                                <div class="d-flex ">
-                                    <div class="avatar avatar-xl bg-gradient-dark border-radius-md p-2">
-                                        <img src="{{ $data->mapel->image_url }}" alt="{{ $data->judul }}">
-                                    </div>
-                                    <div class="ms-3 my-auto ">
-                                        <h6><a href="#">{{ $data->judul }}</a></h6>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <div class="dropdown">
-                                            <button class="btn btn-link text-secondary ps-0 pe-2"
-                                                id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-lg"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end me-sm-n4 me-n3"
-                                                aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="javascript:;">Action</a>
+                <div class="row mt-lg-4 mt-2">
+                    @forelse ($datas->where('jenis', 'ujian') as $data)
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex ">
+                                        <div class="avatar avatar-xl bg-gradient-dark border-radius-md p-2">
+                                            <img src="{{ $data->mapel->image_url }}" alt="{{ $data->judul }}">
+                                        </div>
+                                        <div class="ms-3 my-auto ">
+                                            <h6><a href="#">{{ $data->judul }}</a></h6>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-link text-secondary ps-0 pe-2"
+                                                    id="navbarDropdownMenuLink" data-bs-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-v text-lg"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end me-sm-n4 me-n3"
+                                                    aria-labelledby="navbarDropdownMenuLink">
+                                                    <a class="dropdown-item" href="javascript:;">Action</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <p id="deskripsi" class="text-sm mt-3">
+                                        <small>{{ strip_tags(Str::limit($data->deskripsi, 200, '...')) }}
+                                        </small>
+                                    </p>
+
+                                    <hr class="horizontal dark">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="text-sm mb-0">
+                                                {{ date('d F Y H:m:i', strtotime($data->waktu_mulai)) }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h6 class="text-sm mb-0">
+                                                {{ date('d F Y H:m:i', strtotime($data->waktu_berakhir)) }}
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p id="deskripsi" class="text-sm mt-3">
-                                    <small>{{ strip_tags(Str::limit($data->deskripsi, 200, '...')) }}
-                                    </small>
-                                </p>
 
-                                <hr class="horizontal dark">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="text-sm mb-0">{{ date('d F Y H:m:i', strtotime($data->waktu_mulai)) }}
-                                        </h6>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <h6 class="text-sm mb-0">
-                                            {{ date('d F Y H:m:i', strtotime($data->waktu_berakhir)) }}
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        @php
+                                            $currentDateTime = date('Y-m-d');
+                                            $ujianMulaiDateTime = date('Y-m-d', strtotime($data->waktu_mulai));
+                                            $ujianBerakhirDateTime = date('Y-m-d', strtotime($data->waktu_berakhir));
+                                            $currentTime = date('H:i:s');
+                                            $ujianMulaiTime = date('H:i:s', strtotime($data->waktu_mulai));
+                                            $ujianBerakhirTime = date('H:i:s', strtotime($data->waktu_berakhir));
+                                        @endphp
 
-                            <div class="card-footer">
-                                <div class="row">
-                                    @php
-                                        $currentDateTime = date('Y-m-d');
-                                        $ujianMulaiDateTime = date('Y-m-d', strtotime($data->waktu_mulai));
-                                        $ujianBerakhirDateTime = date('Y-m-d', strtotime($data->waktu_berakhir));
-                                        $currentTime = date('H:i:s');
-                                        $ujianMulaiTime = date('H:i:s', strtotime($data->waktu_mulai));
-                                        $ujianBerakhirTime = date('H:i:s', strtotime($data->waktu_berakhir));
-                                    @endphp
+                                        <div class="col-6">
+                                            @if (
+                                                $ujianMulaiDateTime > $currentDateTime ||
+                                                    ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
+                                                <span class="badge bg-gradient-success">Ujian Belum Dimulai</span>
+                                            @endif
+                                        </div>
 
-                                    <div class="col-6">
-                                        @if (
-                                            $ujianMulaiDateTime > $currentDateTime ||
-                                                ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
-                                            <span class="badge bg-gradient-success">Ujian Belum Dimulai</span>
-                                        @endif
-                                    </div>
-
-                                    <div class="col-6 text-end">
-                                        @if (
-                                            $ujianMulaiDateTime > $currentDateTime ||
-                                                ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
-                                        @else
-                                            @if ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'dikerjakan')->count() > 0)
-                                                <a href="{{ route('mod.soal', $data->id) }}"
-                                                    class="btn btn-sm btn-primary">Lanjutkan</a>
-                                            @elseif ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'selesai')->count() > 0)
-                                                @if ($data->is_terbitkan_nilai == 1)
-                                                    <a href="{{ route('mod.hasil', $data->id) }}"
-                                                        class="btn btn-sm btn-primary">Lihat Hasil</a>
-                                                @endif
+                                        <div class="col-6 text-end">
+                                            @if (
+                                                $ujianMulaiDateTime > $currentDateTime ||
+                                                    ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
                                             @else
-                                                <button type="button" onclick="confirmAlert({{ $data->id }})"
-                                                    class="btn btn-sm btn-primary">Mulai Ujian</button>
+                                                @if ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'dikerjakan')->count() > 0)
+                                                    <a href="{{ route('mod.soal', $data->id) }}"
+                                                        class="btn btn-sm btn-primary">Lanjutkan</a>
+                                                @elseif ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'selesai')->count() > 0)
+                                                    @if ($data->is_terbitkan_nilai == 1)
+                                                        <a href="{{ route('mod.hasil', $data->id) }}"
+                                                            class="btn btn-sm btn-primary">Lihat Hasil</a>
+                                                    @endif
+                                                @else
+                                                    <button type="button" onclick="confirmAlert({{ $data->id }})"
+                                                        class="btn btn-sm btn-primary">Mulai Ujian</button>
+                                                @endif
+
+                                                @push('scripts')
+                                                    <script>
+                                                        function confirmAlert(id) {
+                                                            var x = confirm("Apakah Anda yakin ingin memulai ujian?");
+                                                            if (x) {
+                                                                window.location.href = "{{ route('mod.update', ['id' => ':id', 'status' => 'belum']) }}".replace(':id',
+                                                                    id);
+                                                            } else {
+                                                                return false;
+                                                            }
+                                                        }
+                                                    </script>
+                                                @endpush
                                             @endif
 
-                                            @push('scripts')
-                                                <script>
-                                                    function confirmAlert(id) {
-                                                        var x = confirm("Apakah Anda yakin ingin memulai ujian?");
-                                                        if (x) {
-                                                            window.location.href = "{{ route('mod.update', ['id' => ':id', 'status' => 'belum']) }}".replace(':id',
-                                                                id);
-                                                        } else {
-                                                            return false;
-                                                        }
-                                                    }
-                                                </script>
-                                            @endpush
-                                        @endif
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @empty
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex ">
+                                        <div class="avatar avatar-xl bg-gradient-dark border-radius-md p-2">
+                                            <img src="{{ asset('assets') }}/img/no-data.png" alt="Data Kosong">
+                                        </div>
+                                        <div class="ms-3 my-auto ">
+                                            <h6><a href="#">Data Kosong</a></h6>
+                                        </div>
+                                    </div>
+                                    <p id="deskripsi" class="text-sm mt-3">
+                                        <small>{{ __('Data tidak ditemukan') }}
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
+                </div>
+            </section>
+            <section class="py-3">
+                <div class="row">
+                    <div class="col-md-8 me-auto text-left">
+                        <h5>{{ __('Tugas / Quiz') }}</h5>
+                        <p>{{ __('Tugas Quiz yang tersedia.') }}</p>
                     </div>
-                @empty
-                    <img src="{{ asset('storage/cbt.png') }}" alt="Ayo Ujian dengan Jujur" title="Ayo jujur dengan jujur">
-                @endforelse
-            </div>
-        </section>
+                </div>
+                <div class="row mt-lg-4 mt-2">
+                    @forelse ($datas->where('jenis', '!=', 'ujian') as $data)
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="d-flex ">
+                                        <div class="avatar avatar-xl bg-gradient-dark border-radius-md p-2">
+                                            <img src="{{ $data->mapel->image_url }}" alt="{{ $data->judul }}">
+                                        </div>
+                                        <div class="ms-3 my-auto ">
+                                            <h6><a href="#">{{ $data->judul }}</a></h6>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-link text-secondary ps-0 pe-2"
+                                                    id="navbarDropdownMenuLink" data-bs-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-v text-lg"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end me-sm-n4 me-n3"
+                                                    aria-labelledby="navbarDropdownMenuLink">
+                                                    <a class="dropdown-item" href="javascript:;">Action</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p id="deskripsi" class="text-sm mt-3">
+                                        <small>{{ strip_tags(Str::limit($data->deskripsi, 200, '...')) }}
+                                        </small>
+                                    </p>
+
+                                    <hr class="horizontal dark">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="text-sm mb-0">
+                                                {{ date('d F Y H:m:i', strtotime($data->waktu_mulai)) }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h6 class="text-sm mb-0">
+                                                {{ date('d F Y H:m:i', strtotime($data->waktu_berakhir)) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="row">
+                                        @php
+                                            $currentDateTime = date('Y-m-d');
+                                            $ujianMulaiDateTime = date('Y-m-d', strtotime($data->waktu_mulai));
+                                            $ujianBerakhirDateTime = date('Y-m-d', strtotime($data->waktu_berakhir));
+                                            $currentTime = date('H:i:s');
+                                            $ujianMulaiTime = date('H:i:s', strtotime($data->waktu_mulai));
+                                            $ujianBerakhirTime = date('H:i:s', strtotime($data->waktu_berakhir));
+                                        @endphp
+
+                                        <div class="col-6">
+                                            @if (
+                                                $ujianMulaiDateTime > $currentDateTime ||
+                                                    ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
+                                                <span class="badge bg-gradient-success">Ujian Belum Dimulai</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-6 text-end">
+                                            @if (
+                                                $ujianMulaiDateTime > $currentDateTime ||
+                                                    ($ujianMulaiDateTime === $currentDateTime && $ujianMulaiTime > $currentTime))
+                                            @else
+                                                @if ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'dikerjakan')->count() > 0)
+                                                    <a href="{{ route('mod.soal', $data->id) }}"
+                                                        class="btn btn-sm btn-primary">Lanjutkan</a>
+                                                @elseif ($siswaUjian->where('tugas_quiz_id', $data->id)->where('status', 'selesai')->count() > 0)
+                                                    @if ($data->is_terbitkan_nilai == 1 && $data->jenis != 'ujian')
+                                                        <a href="{{ route('mod.hasil', $data->id) }}"
+                                                            class="btn btn-sm btn-primary">Lihat Hasil</a>
+                                                    @endif
+                                                @else
+                                                    <button type="button" onclick="confirmAlert({{ $data->id }})"
+                                                        class="btn btn-sm btn-primary">Mulai Ujian</button>
+                                                @endif
+
+                                                @push('scripts')
+                                                    <script>
+                                                        function confirmAlert(id) {
+                                                            var x = confirm("Apakah Anda yakin ingin memulai ujian?");
+                                                            if (x) {
+                                                                window.location.href = "{{ route('mod.update', ['id' => ':id', 'status' => 'belum']) }}".replace(':id',
+                                                                    id);
+                                                            } else {
+                                                                return false;
+                                                            }
+                                                        }
+                                                    </script>
+                                                @endpush
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <img src="{{ asset('storage/cbt.png') }}" alt="Ayo Ujian dengan Jujur"
+                            title="Ayo jujur dengan jujur">
+                    @endforelse
+                </div>
+            </section>
+        @else
+            <img src="{{ asset('storage/cbt.png') }}" alt="Ayo Ujian dengan Jujur" title="Ayo jujur dengan jujur">
+        @endif
     </div>
 @endsection

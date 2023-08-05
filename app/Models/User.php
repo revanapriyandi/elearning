@@ -47,9 +47,9 @@ class User extends Authenticatable
      */
     protected $appends = ['image_url'];
 
-    public function pengajar()
+    public function guru()
     {
-        return $this->hasOne(Pengajar::class);
+        return $this->hasOne(Guru::class);
     }
 
     public function siswa()
@@ -78,9 +78,9 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-    public function isPengajar()
+    public function isGuru()
     {
-        return $this->role === 'pengajar';
+        return $this->role === 'guru';
     }
 
     public function isSiswa()

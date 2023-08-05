@@ -23,7 +23,7 @@
                             document.getElementById("countdown").value = "00 : 00 : 00";
                             var countDownDate;
 
-                            if ("{{ $data->jenis }}" == 'quiz') {
+                            if ("{{ $data->jenis }}" != 'tugas') {
                                 countDownDate = new Date('{{ $ujian->waktu_mulai }}').getTime() + (60 * 60000);
                             } else {
                                 countDownDate = new Date('{{ $data->waktu_mulai }}').getTime() + new Date('{{ $data->waktu_berakhir }}')
@@ -33,7 +33,7 @@
                             var x = setInterval(function() {
                                 var now = new Date().getTime();
                                 var distance = countDownDate - now;
-                                if ("{{ $data->jenis }}" == 'quiz') {
+                                if ("{{ $data->jenis }}" != 'tugas') {
                                     if ("{{ $ujian->status }}" == 'dikerjakan' && distance >= 0) {
                                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                                         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -66,7 +66,7 @@
             <div class="card position-sticky top-1">
                 <ul class="bg-white border-radius-lg p-3">
                     <div class="row mt-3">
-                        @if ($data->jenis == 'quiz')
+                        @if ($data->jenis != 'tugas')
                             @foreach ($data->soal as $index => $item)
                                 @php
                                     $soalActive = $item->jawabanSiswa
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-lg-9 mt-lg-0 mt-3">
-            @if ($data->jenis == 'quiz')
+            @if ($data->jenis != 'tugas')
                 @foreach ($data->siswaUjian as $cek)
                     @if ($cek->status == 'belum')
                         @include('Pages.Cbt.partials.info', ['data' => $data])
@@ -118,8 +118,8 @@
                             <input type="hidden" name="jenis" value="{{ $data->jenis }}">
                             <div class="card mt-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ __('No') }}. {{ request()->get('no') || 1 }}
-                                        &nabla;{!! $soal->pertanyaan !!}
+                                    <h5 class="card-title">{{ request()->get('no') + 1 }}.
+                                        {{ strip_tags($soal->pertanyaan) }}
                                     </h5>
                                     <hr />
                                     <div class="row">
@@ -138,8 +138,8 @@
                                                     <label class="custom-control-label" for="{{ $item->pilihan }}">
                                                         <div class="d-flex flex-column">
                                                             <h6 class="mb-1 text-dark text-sm">{{ $item->pilihan }}</h6>
-                                                            <span class="text-xs"><span
-                                                                    class="font-weight-bold">{!! $item->text_jawaban !!}</span></span>
+                                                            <span
+                                                                class="font-weight-bold">{{ strip_tags($item->text_jawaban) }}</span>
                                                         </div>
                                                     </label>
                                                     @error('jawaban')

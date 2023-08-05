@@ -107,8 +107,8 @@
                                         <option value="">{{ __('Select Role') }}</option>
                                         <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>
                                             {{ __('Admin') }}</option>
-                                        <option value="pengajar" {{ $user->role == 'pengajar' ? 'selected' : '' }}>
-                                            {{ __('Pengajar') }}</option>
+                                        <option value="guru" {{ $user->role == 'guru' ? 'selected' : '' }}>
+                                            {{ __('Guru') }}</option>
                                         <option value="siswa" {{ $user->role == 'siswa' ? 'selected' : '' }}>
                                             {{ __('Siswa') }}</option>
                                     </select>

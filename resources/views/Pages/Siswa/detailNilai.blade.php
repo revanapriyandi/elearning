@@ -35,31 +35,34 @@
                                 @foreach ($data->ujian as $item)
                                     @php
                                         $totalNilai += $item->nilai;
+                                        $tugasQuiz = App\Models\TugasQuiz::where('id', $item->tugas_quiz_id)->first();
                                     @endphp
-                                    <tr style="text-align: center; vertical-align: middle;">
-                                        <td class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</td>
-                                        <td class="text-xs font-weight-bold mb-0">
-                                            {{ $item->tugasQuiz->judul }}
-                                        </td>
-                                        <td class="text-xs font-weight-bold mb-0">
-                                            {{ $item->nilai }}
-                                        </td>
-                                        <td class="text-xs font-weight-bold mb-0">
-                                            @if ($item->nilai >= 90)
-                                                A
-                                            @elseif($item->nilai >= 80)
-                                                B
-                                            @elseif($item->nilai >= 70)
-                                                C
-                                            @elseif($item->nilai >= 60)
-                                                D
-                                            @else
-                                                E
-                                            @endif
-                                        </td>
-                                        <td class="text-xs font-weight-bold mb-0">
-                                            {{ date('d F Y, H:i', strtotime($item->updated_at)) }}</td>
-                                    </tr>
+                                    @if ($tugasQuiz->jenis != 'ujian')
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <td class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ $item->tugasQuiz->judul }}
+                                            </td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ $item->nilai }}
+                                            </td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                @if ($item->nilai >= 90)
+                                                    A
+                                                @elseif($item->nilai >= 80)
+                                                    B
+                                                @elseif($item->nilai >= 70)
+                                                    C
+                                                @elseif($item->nilai >= 60)
+                                                    D
+                                                @else
+                                                    E
+                                                @endif
+                                            </td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ date('d F Y, H:i', strtotime($item->updated_at)) }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tfoot>

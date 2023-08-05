@@ -26,9 +26,9 @@ class Materi extends Model
         return $this->belongsTo(MataPelajaran::class);
     }
 
-    public function pengajar()
+    public function guru()
     {
-        return $this->belongsTo(Pengajar::class);
+        return $this->belongsTo(Guru::class);
     }
 
     public function tahunAjaran()

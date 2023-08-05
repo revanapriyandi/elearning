@@ -13,51 +13,66 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BankSoalController extends Controller
 {
+    private function generateData($jenis)
+    {
+        $banksoal = TugasQuiz::query();
+        if (auth()->user()->role == 'guru') {
+            $banksoal->where('user_id', auth()->user()->id);
+        }
+
+        $banksoal->where('jenis', $jenis == 'ujian' ? '=' : '!=', 'ujian');
+        $banksoal->with(['user', 'mapel', 'kelasTugasQuiz']);
+
+        return DataTables::eloquent($banksoal)
+            ->addIndexColumn()
+            ->addColumn('updated_at', function ($soal) {
+                return $soal->updated_at->diffForHumans();
+            })
+            ->addColumn('question', function ($soal) {
+                return $soal->judul;
+            })
+            ->addColumn('created_by', function ($soal) {
+                return $soal->user->nama_lengkap;
+            })
+            ->addColumn('mapel', function ($soal) {
+                return $soal->mapel->nama_mapel;
+            })
+            ->addColumn('waktu', function ($soal) {
+                $waktu_mulai = strtotime($soal->waktu_mulai);
+                $waktu_selesai = strtotime($soal->waktu_selesai);
+                return date('d M Y H:i', $waktu_mulai) . ' - ' . date('d M Y H:i', $waktu_selesai);
+            })
+            ->addColumn('status', function ($soal) {
+                if ($soal->is_aktif) {
+                    return '<span class="badge bg-gradient-success">Aktif</span>';
+                } else {
+                    return '<span class="badge bg-gradient-danger">Tidak Aktif</span>';
+                }
+            })
+            ->addColumn('actions', function ($soal) {
+                return '<div class="dropdown"><button class="btn btn-sm bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"><li><a class="dropdown-item" href="' . route('banksoal.soal', $soal->id) . '">Soal</a></li><li><a class="dropdown-item" href="' . route('banksoal.soal.nilai', ['id' => $soal->id, 'jenis' => $soal->jenis]) . '">Nilai</a></li> <li><a class="dropdown-item" href="' . route('banksoal.edit', $soal->id) . '">Edit</a></li> <li><a class="dropdown-item" href="' . route('banksoal.soal.destroy', $soal->id) . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus ini?\')">Delete</a></li></ul></div>';
+            })
+            ->rawColumns(['actions', 'updated_at', 'status', 'question', 'created_by',  'mapel', 'waktu'])
+            ->toJson();
+    }
+
     public function index()
     {
         if (request()->ajax()) {
-            $banksoal = TugasQuiz::query();
-            if (auth()->user()->role == 'pengajar') {
-                $banksoal->where('user_id', auth()->user()->id);
-            }
-            $banksoal->with(['user', 'mapel', 'kelasTugasQuiz']);
-
-            return DataTables::eloquent($banksoal)
-                ->addIndexColumn()
-                ->addColumn('updated_at', function ($soal) {
-                    return $soal->updated_at->diffForHumans();
-                })
-                ->addColumn('question', function ($soal) {
-                    return $soal->judul;
-                })
-
-                ->addColumn('created_by', function ($soal) {
-                    return $soal->user->nama_lengkap;
-                })
-                ->addColumn('mapel', function ($soal) {
-                    return $soal->mapel->nama_mapel;
-                })
-                ->addColumn('waktu', function ($soal) {
-                    $waktu_mulai = strtotime($soal->waktu_mulai);
-                    $waktu_selesai = strtotime($soal->waktu_selesai);
-
-                    return date('d M Y H:i', $waktu_mulai) . ' - ' . date('d M Y H:i', $waktu_selesai);
-                })
-                ->addColumn('status', function ($soal) {
-                    if ($soal->is_aktif) {
-                        return '<span class="badge bg-gradient-success">Aktif</span>';
-                    } else {
-                        return '<span class="badge bg-gradient-danger">Tidak Aktif</span>';
-                    }
-                })
-                ->addColumn('actions', function ($soal) {
-                    return '<div class="dropdown"><button class="btn btn-sm bg-gradient-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"><li><a class="dropdown-item" href="' . route('banksoal.soal', $soal->id) . '">Soal</a></li><li><a class="dropdown-item" href="' . route('banksoal.soal.nilai', ['id' => $soal->id, 'jenis' => $soal->jenis]) . '">Nilai</a></li> <li><a class="dropdown-item" href="' . route('banksoal.edit', $soal->id) . '">Edit</a></li> <li><a class="dropdown-item" href="' . route('banksoal.soal.destroy', $soal->id) . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus ini?\')">Delete</a></li></ul></div>';
-                })
-                ->rawColumns(['actions', 'updated_at', 'status', 'question', 'created_by',  'mapel', 'waktu'])
-                ->toJson();
+            return $this->generateData('non-ujian');
         }
         return view('Pages.BankSoal.index');
     }
+
+    public function ujian()
+    {
+        if (request()->ajax()) {
+            return $this->generateData('ujian');
+        }
+        return view('Pages.BankSoal.index');
+    }
+
+
 
     public function create()
     {
@@ -108,7 +123,9 @@ class BankSoalController extends Controller
                 ]);
             }
         }
-
+        if ($request->jenis_ujian == 'ujian') {
+            return redirect()->route('banksoal.ujian')->with('success', 'Ujian berhasil dibuat');
+        }
         return redirect()->route('banksoal')->with('success', 'Soal berhasil dibuat');
     }
 
@@ -165,7 +182,9 @@ class BankSoalController extends Controller
                 ]);
             }
         }
-
+        if ($request->jenis_ujian == 'ujian') {
+            return redirect()->route('banksoal.ujian')->with('success', 'Ujian berhasil dibuat');
+        }
         return redirect()->route('banksoal')->with('success', 'Soal berhasil diupdate');
     }
 
@@ -174,6 +193,6 @@ class BankSoalController extends Controller
         $tugas_quiz = TugasQuiz::findOrFail($id);
         $tugas_quiz->delete();
 
-        return redirect()->route('banksoal')->with('success', 'Soal berhasil dihapus');
+        return redirect()->back()->with('success', 'Soal berhasil dihapus');
     }
 }

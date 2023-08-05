@@ -8,18 +8,20 @@
                     <div class="d-lg-flex">
                         <div>
                             <h5 class="mb-0">{{ __('Bank Soal') }}</h5>
+
                             <p class="text-sm mb-0">
-                                {{ __('Kumpulan soal yang dapat digunakan untuk ujian atau tes berbasis komputer.') }}
+                                {{ __('Kumpulan soal') }}
                             </p>
                         </div>
                         <div class="ms-auto my-auto mt-lg-0 mt-4">
                             <div class="ms-auto my-auto">
                                 <a href="{{ route('banksoal.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp;
-                                    {{ __('Create New Question') }}</a>
-                                <button type="button" class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
+                                    {{ __('Create New Question') }}
+                                </a>
+                                {{-- <button type="button" class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
                                     data-bs-target="#import">
                                     Import
-                                </button>
+                                </button> --}}
                                 @include('Pages.BankSoal.modal')
                             </div>
                         </div>
@@ -69,6 +71,12 @@
     @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
+                var route;
+                if (window.location.href.indexOf("ujian") > -1) {
+                    route = "{{ route('banksoal.ujian') }}";
+                } else {
+                    route = "{{ route('banksoal') }}";
+                }
                 $('#tableSoal').DataTable({
                     dom: 'Bfrtip',
                     buttons: [{
@@ -105,7 +113,7 @@
                     processing: true,
                     serverSide: true,
                     responsive: true,
-                    ajax: "{{ route('banksoal') }}",
+                    ajax: route,
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex',

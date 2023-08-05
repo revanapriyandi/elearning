@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CbtController;
 use App\Http\Controllers\MataPelajaran;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\UserController;
@@ -12,13 +13,12 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\BankSoalController;
-use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PresensiController;
-use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\UploaderController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\RuangDiskusiController;
 use App\Http\Controllers\MataPelajaranController;
-use App\Http\Controllers\UploaderController;
+use App\Http\Controllers\RombonganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +41,13 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    Route::get('/rombel', [RombonganController::class, 'index'])->name('rombel');
+    Route::get('/rombel/create', [RombonganController::class, 'create'])->name('rombel.create');
+    Route::post('/rombel/store', [RombonganController::class, 'store'])->name('rombel.store');
+    Route::get('/rombel/{id}/edit', [RombonganController::class, 'edit'])->name('rombel.edit');
+    Route::put('/rombel/{id}/update', [RombonganController::class, 'update'])->name('rombel.update');
+    Route::delete('/rombel/{id}/delete', [RombonganController::class, 'destroy'])->name('rombel.destroy');
 
     Route::post('uploads', [UploaderController::class, 'uploads'])->name('uploads');
     Route::get('download/{file}', [UploaderController::class, 'download'])->name('download');
@@ -68,18 +75,17 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('masterdata')->middleware(['auth'])->group(function () {
     Route::middleware('admin')->group(function () {
         Route::resource('tahun-ajaran', TahunAjaranController::class)->except(['show']);
-        Route::resource('semester', SemesterController::class)->except(['show']);
         Route::get('kelas', [KelasController::class, 'index'])->name('kelas');
         Route::post('kelas/store', [KelasController::class, 'store'])->name('kelas.store');
         Route::get('kelas/edit/{kelas}', [KelasController::class, 'edit'])->name('kelas.edit');
         Route::put('kelas/update/{kelas}', [KelasController::class, 'update'])->name('kelas.update');
         Route::delete('kelas/destroy/{kelas}', [KelasController::class, 'destroy'])->name('kelas.destroy');
-        Route::resource('pengajar', PengajarController::class);
+        Route::resource('guru', GuruController::class);
 
         Route::resource('mapel', MataPelajaranController::class, ['except' => ['show', 'create']]);
         Route::get('mapel/kelas', [MataPelajaranController::class, 'mapelKelas'])->name('mapel.kelas');
     });
-    Route::resource('siswa', SiswaController::class, ['except' => ['show']])->middleware('pengajar');
+    Route::resource('siswa', SiswaController::class, ['except' => ['show']])->middleware('guru');
     Route::resource('user', UserController::class);
 });
 
@@ -100,8 +106,9 @@ Route::prefix('mod')->middleware(['auth'])->group(function () {
     Route::get('/{id}/hasil', [CbtController::class, 'hasil'])->name('mod.hasil');
 });
 
-Route::prefix('cbt')->middleware(['auth', 'pengajar'])->group(function () {
-    Route::get('/banksoal', [BankSoalController::class, 'index'])->name('banksoal');
+Route::prefix('cbt')->middleware(['auth', 'guru'])->group(function () {
+    Route::get('/banksoal/quiz', [BankSoalController::class, 'index'])->name('banksoal');
+    Route::get('/banksoal/ujian', [BankSoalController::class, 'ujian'])->name('banksoal.ujian');
     Route::get('/banksoal/create', [BankSoalController::class, 'create'])->name('banksoal.create');
     Route::post('/banksoal/store', [BankSoalController::class, 'store'])->name('banksoal.store');
     Route::get('/banksoal/{id}/edit', [BankSoalController::class, 'edit'])->name('banksoal.edit');

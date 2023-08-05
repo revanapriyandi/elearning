@@ -32,20 +32,53 @@
                 </a>
             </li>
 
-            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'guru')
                 <li class="nav-item mt-3">
                     <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Computer Based Test
                         (CBT)
                     </h6>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('banksoal') }}"
-                        class="nav-link {{ request()->is('cbt/banksoal*') ? 'active' : '' }}">
+                    <a data-bs-toggle="collapse" href="#banksoal" class="nav-link" aria-controls="banksoal"
+                        role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                             <i class="fa-brands fa-discourse fa-discourse text-primary text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">{{ __('Bank Soal') }}</span>
+                    </a>
+                    <div class="collapse {{ request()->is('cbt/banksoal*') ? 'show' : '' }}" id="banksoal"
+                        style="">
+                        <ul class="nav ms-4">
+                            <li class="nav-item ">
+                                <a class="nav-link  {{ request()->is('cbt/banksoal/quiz*') ? 'active' : '' }}"
+                                    href="{{ route('banksoal') }}">
+                                    <span class="sidenav-mini-icon"> T </span>
+                                    <span class="sidenav-normal"> Tugas Quiz </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link  {{ request()->is('cbt/banksoal/ujian*') ? 'active' : '' }}"
+                                    href="{{ route('banksoal.ujian') }}">
+                                    <span class="sidenav-mini-icon"> U </span>
+                                    <span class="sidenav-normal"> Ujian </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
+                        Rombongan Belajar
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('rombel') }}" class="nav-link {{ request()->is('rombel*') ? 'active' : '' }}">
+                        <div
+                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-object-group text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">{{ __('Rombongan Belajar') }}</span>
                     </a>
                 </li>
                 <li class="nav-item mt-3">
@@ -131,22 +164,12 @@
                     <span class="nav-link-text ms-1">{{ __('Ruang Diskusi') }}</span>
                 </a>
             </li>
-            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'guru')
                 <li class="nav-item mt-3">
                     <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">MASTER DATA</h6>
                 </li>
             @endif
             @if (auth()->user()->role == 'admin')
-                <li class="nav-item">
-                    <a href="{{ route('semester.index') }}"
-                        class="nav-link {{ request()->is('masterdata/semester*') ? 'active' : '' }}">
-                        <div
-                            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa-sharp fa-solid fa-screen-users text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">{{ __('Semester') }}</span>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="{{ route('tahun-ajaran.index') }}"
                         class="nav-link {{ request()->is('masterdata/tahun-ajaran*') ? 'active' : '' }}">
@@ -154,7 +177,7 @@
                             class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-calendar-days text-primary text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">{{ __('Tahun Ajaran') }}</span>
+                        <span class="nav-link-text ms-1">{{ __('Tahun Ajaran / Semester') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -178,7 +201,7 @@
                     </a>
                 </li>
             @endif
-            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'pengajar')
+            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'guru')
                 <li class="nav-item">
                     <a href="{{ route('siswa.index') }}"
                         class="nav-link {{ request()->is('masterdata/siswa*') ? 'active' : '' }}">
@@ -192,13 +215,13 @@
             @endif
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item">
-                    <a href="{{ route('pengajar.index') }}"
-                        class="nav-link {{ request()->is('masterdata/pengajar*') ? 'active' : '' }}">
+                    <a href="{{ route('guru.index') }}"
+                        class="nav-link {{ request()->is('masterdata/guru*') ? 'active' : '' }}">
                         <div
                             class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-chalkboard-user text-primary text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">{{ __('Pengajar') }}</span>
+                        <span class="nav-link-text ms-1">{{ __('Guru') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">

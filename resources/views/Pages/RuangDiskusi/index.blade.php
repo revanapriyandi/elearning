@@ -5,10 +5,10 @@
         @include('Pages.RuangDiskusi.siswa', ['data' => $data, 'mapel' => $mapel]);
     @endif
 
-    @if (Auth::user()->role == 'pengajar')
-        @include('Pages.RuangDiskusi.pengajar', [
+    @if (Auth::user()->role == 'guru')
+        @include('Pages.RuangDiskusi.guru', [
             'data' => $data,
-            'mapel' => $mapel->where('id', auth()->user()->pengajar->mata_pelajaran_id),
+            'mapel' => $mapel->where('id', auth()->user()->guru->mata_pelajaran_id),
         ]);
     @endif
 @endsection

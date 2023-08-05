@@ -17,7 +17,7 @@
                     @if (!$data2->benar)
                         <div class="alert alert-info mt-3" role="alert">
                             <strong>{{ __('Perhatian') }}!</strong>
-                            {{ __('Nilai akan ditampilkan di laman ini jika jawaban sudah dinilai oleh pengajar.') }}
+                            {{ __('Nilai akan ditampilkan di laman ini jika jawaban sudah dinilai oleh guru.') }}
                         </div>
                     @else
                         <div class="row">
@@ -64,7 +64,7 @@
 
                             @php
                                 $nilai = ($data2->benar / $data->soal->count()) * 100;
-                                
+
                                 if ($nilai >= 90) {
                                     $nilai = 'A';
                                 } elseif ($nilai >= 80) {

@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Materi;
-use App\Models\Pengajar;
+use App\Models\Guru;
 use App\Models\TugasQuiz;
 use App\Models\MateriRead;
 use App\Models\SiswaUjian;
@@ -21,15 +21,15 @@ class MateriController extends Controller
     public function index()
     {
         $data = MataPelajaran::all();
-        $pengajar = Pengajar::where('user_id', Auth::user()->id)->first();
+        $guru = Guru::where('user_id', Auth::user()->id)->first();
         if (auth()->user()->role == 'siswa') {
             $siswa = Siswa::with(['kelas'])->where('user_id', Auth::user()->id)->first();
             $mapel = explode(',', $siswa->kelas->mapel);
             $data = $data->filter(function ($item) use ($mapel) {
                 return in_array($item->id, $mapel);
             });
-        } else if (auth()->user()->role == 'pengajar') {
-            $mapel = explode(',', $pengajar->kelas->mapel);
+        } else if (auth()->user()->role == 'guru') {
+            $mapel = explode(',', $guru->kelas->mapel);
             $data = $data->filter(function ($item) use ($mapel) {
                 return in_array($item->id, $mapel);
             });
@@ -37,7 +37,7 @@ class MateriController extends Controller
 
         return view('Pages.Materi.index', [
             'data' => $data,
-            'pengajar' => $pengajar,
+            'guru' => $guru,
         ]);
     }
 

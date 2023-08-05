@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('judul');
             $table->longText('deskripsi');
-            $table->enum('jenis', ['tugas', 'quiz']);
+            $table->enum('jenis', ['tugas', 'quiz', 'ujian']);
             $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajarans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->dateTime('waktu_mulai');
             $table->dateTime('waktu_berakhir');

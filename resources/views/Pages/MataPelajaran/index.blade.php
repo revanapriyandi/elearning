@@ -24,7 +24,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         Mata Pelajaran</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
-                                        Pengajar</th>
+                                        Guru</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
                                     </th>
                                 </tr>
@@ -45,13 +45,13 @@
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             @php
-                                                $pengajar = \App\Models\Pengajar::where('mata_pelajaran_id', $item->id)->first();
+                                                $guru = \App\Models\Guru::where('mata_pelajaran_id', $item->id)->first();
                                             @endphp
-                                            @if ($pengajar)
+                                            @if ($guru)
                                                 <a
-                                                    href="{{ route('pengajar.show', $pengajar->id) }}">{{ $pengajar->user->nama_lengkap }}</a>
+                                                    href="{{ route('guru.show', $guru->id) }}">{{ $guru->user->nama_lengkap }}</a>
                                             @else
-                                                <span class="badge bg-gradient-warning">Belum Ada Pengajar</span>
+                                                <span class="badge bg-gradient-warning">Belum Ada Guru</span>
                                             @endif
                                         </td>
                                         <td class="text-sm font-weight-normal">
