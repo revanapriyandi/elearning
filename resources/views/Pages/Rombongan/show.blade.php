@@ -3,24 +3,24 @@
 @section('content')
     <div class="row">
         <div class="col-lg-6">
-            <h4 class="text-white">{{ __('Rombongan Belajar') }}</h4>
-            <p class="text-white opacity-8">{{ __('Rombongan Belajar Siswa') }}</p>
+            <h4 class="text-white">{{ $data->name }}</h4>
+            <p class="text-white opacity-8">{{ __('Rombongan Belajar') }}</p>
         </div>
         <div class="col-lg-6 text-right d-flex flex-column justify-content-center">
-            <a href="{{ route('rombel.create') }}" class="btn btn-outline-white mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2"
-                id="btnSubmit">
-                <span id="btnText">{{ __('Tambah Data Rombel') }}</span></a>
+            <button type="button" class="btn bg-gradient-primary  mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2"
+                data-bs-toggle="modal" data-bs-target="#modalAddAnggota">
+                <span id="btnText">{{ __('Tambah Anggota Rombel') }}</span></button>
+            @include('Pages.Rombongan.modal')
         </div>
     </div>
-
     <div class="row my-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    {{ __('Daftar Rombongan Belajar Siswa') }}
+                    {{ __('Anggota Rombongan Belajar') }}
                 </div>
 
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="table-responsive">
                         <table class="table align-items-center mb-0" id="DataTable">
                             <thead>
@@ -29,24 +29,18 @@
                                         {{ __('No.') }}
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        {{ __('Rombongan Belajar') }}
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        {{ __('Nama Guru') }}
+                                        {{ __('Siswa') }}
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         {{ __('Kelas') }}
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        {{ __('Semester') }}
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        {{ __('Created At') }}
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        {{ __('Tahun Ajaran') }}
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        {{ __('Jumlah Siswa') }}
+                                        {{ __('Updated At') }}
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -55,30 +49,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $index => $item)
+                                @foreach ($data->siswa as $index => $item)
                                     <tr>
                                         <td>
                                             <p class="text-sm text-secondary mb-0">{{ $index + 1 }}</p>
                                         </td>
                                         <td>
-                                            <a href="{{ route('rombel.show', $item->id) }}"
-                                                class="font-weight-bold text-uppercase">
-                                                <div class="d-flex px-2 py-1">
-                                                    <p class="text-secondary mb-0 text-sm">{{ $item->name }}
-                                                    </p>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="{{ $item->guru->user->image_url }}"
-                                                        class="avatar avatar-sm me-3"
-                                                        alt="{{ $item->guru->user->nama_lengkap }}">
+                                                    <img src="{{ $item->user->image_url }}" class="avatar avatar-sm me-3"
+                                                        alt="{{ $item->user->nama_lengkap }}">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm"><a
-                                                            href="#">{{ $item->guru->user->nama_lengkap }}</a>
+                                                            href="#">{{ $item->user->nama_lengkap }}</a>
                                                     </h6>
                                                 </div>
                                             </div>
@@ -90,32 +74,24 @@
                                         <td>
                                             <span class="badge badge-dot me-4">
                                                 <i class="bg-info"></i>
-                                                <span class="text-dark text-xs">{{ $item->tahun_ajaran->semester }}</span>
+                                                <span
+                                                    class="text-dark text-xs">{{ date('d-F-Y', strtotime($data->created_at)) }}</span>
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-sm">
-                                                {{ $item->tahun_ajaran->name }}
-                                            </span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-sm">
-                                                {{ $item->jml_siswa }}
+                                                {{ date('d-F-Y', strtotime($data->updated_at)) }}
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="btn-group" role="group" aria-label="Aksi">
-                                                <a href="{{ route('rombel.edit', $item->id) }}"
-                                                    class="btn btn-link text-secondary font-weight-bold text-xs">
-                                                    <span class="badge badge-sm bg-gradient-warning">Edit</span>
-                                                </a>
-                                                <form action="{{ route('rombel.destroy', $item->id) }}" method="POST"
+                                                <form action="{{ route('rombel.siswa.remove', $item->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="btn btn-link text-secondary font-weight-bold text-xs"
-                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
                                                         <span class="badge badge-sm bg-gradient-danger">Hapus</span>
                                                     </button>
                                                 </form>
@@ -125,6 +101,14 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th colspan="4">Jumlah Siswa</th>
+                                    <th colspan="2">
+                                        {{ $data->siswa->count() }}
+                                    </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

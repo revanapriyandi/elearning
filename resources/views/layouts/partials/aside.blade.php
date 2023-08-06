@@ -76,7 +76,7 @@
                     <a href="{{ route('rombel') }}" class="nav-link {{ request()->is('rombel*') ? 'active' : '' }}">
                         <div
                             class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                            <i class="fa fa-object-group text-primary text-sm opacity-10"></i>
+                            <i class="fa fa-school text-primary text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">{{ __('Rombongan Belajar') }}</span>
                     </a>
