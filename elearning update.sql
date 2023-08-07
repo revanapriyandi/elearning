@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 05 Agu 2023 pada 06.11
+-- Waktu pembuatan: 06 Agu 2023 pada 17.43
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -312,7 +312,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (33, '2023_06_27_224510_add_mapel_to_kelas_table', 8),
 (34, '2023_06_16_031433_create_tahun_ajarans_table', 9),
 (35, '2023_06_16_031446_create_siswas_table', 9),
-(36, '2023_08_05_122826_create_rombels_table', 10);
+(37, '2023_08_05_122826_create_rombels_table', 10),
+(38, '2023_08_06_222829_add_rombel_id_to_siswas_table', 11),
+(39, '2023_08_06_223510_add_desc_to_rombels_table', 12);
 
 -- --------------------------------------------------------
 
@@ -392,15 +394,21 @@ INSERT INTO `presensis` (`id`, `siswa_id`, `status`, `keterangan`, `latitude`, `
 CREATE TABLE `rombels` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `siswa_id` bigint UNSIGNED DEFAULT NULL,
   `guru_id` bigint UNSIGNED DEFAULT NULL,
   `kelas_id` bigint UNSIGNED DEFAULT NULL,
   `tahun_ajaran_id` bigint UNSIGNED DEFAULT NULL,
-  `jumlah_siswa` int DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
+  `desc` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `rombels`
+--
+
+INSERT INTO `rombels` (`id`, `name`, `guru_id`, `kelas_id`, `tahun_ajaran_id`, `status`, `desc`, `created_at`, `updated_at`) VALUES
+(1, 'Rombel 1', 1, 1, 1, 1, 'Rombel Pertama', '2023-08-06 15:42:44', '2023-08-06 15:42:44');
 
 -- --------------------------------------------------------
 
@@ -466,6 +474,7 @@ CREATE TABLE `siswas` (
   `nis` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
   `kelas_id` bigint UNSIGNED NOT NULL,
+  `rombel_id` bigint UNSIGNED DEFAULT NULL,
   `tahun_ajaran_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -475,8 +484,8 @@ CREATE TABLE `siswas` (
 -- Dumping data untuk tabel `siswas`
 --
 
-INSERT INTO `siswas` (`id`, `nis`, `user_id`, `kelas_id`, `tahun_ajaran_id`, `created_at`, `updated_at`) VALUES
-(1, '0827162881', 4, 1, 1, '2023-07-17 15:34:36', '2023-07-16 17:00:00');
+INSERT INTO `siswas` (`id`, `nis`, `user_id`, `kelas_id`, `rombel_id`, `tahun_ajaran_id`, `created_at`, `updated_at`) VALUES
+(1, '0827162881', 4, 1, 1, 1, '2023-07-17 15:34:36', '2023-08-06 17:37:33');
 
 -- --------------------------------------------------------
 
@@ -735,7 +744,6 @@ ALTER TABLE `presensis`
 --
 ALTER TABLE `rombels`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `rombels_siswa_id_foreign` (`siswa_id`),
   ADD KEY `rombels_guru_id_foreign` (`guru_id`),
   ADD KEY `rombels_kelas_id_foreign` (`kelas_id`),
   ADD KEY `rombels_tahun_ajaran_id_foreign` (`tahun_ajaran_id`);
@@ -765,7 +773,8 @@ ALTER TABLE `siswas`
   ADD UNIQUE KEY `siswas_nis_unique` (`nis`),
   ADD KEY `siswas_user_id_foreign` (`user_id`),
   ADD KEY `siswas_kelas_id_foreign` (`kelas_id`),
-  ADD KEY `siswas_tahun_ajaran_id_foreign` (`tahun_ajaran_id`);
+  ADD KEY `siswas_tahun_ajaran_id_foreign` (`tahun_ajaran_id`),
+  ADD KEY `siswas_rombel_id_foreign` (`rombel_id`);
 
 --
 -- Indeks untuk tabel `siswa_ujian`
@@ -861,7 +870,7 @@ ALTER TABLE `materi_reads`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -879,7 +888,7 @@ ALTER TABLE `presensis`
 -- AUTO_INCREMENT untuk tabel `rombels`
 --
 ALTER TABLE `rombels`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruang_diskusis`
@@ -988,7 +997,6 @@ ALTER TABLE `presensis`
 ALTER TABLE `rombels`
   ADD CONSTRAINT `rombels_guru_id_foreign` FOREIGN KEY (`guru_id`) REFERENCES `gurus` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `rombels_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `rombels_siswa_id_foreign` FOREIGN KEY (`siswa_id`) REFERENCES `siswas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `rombels_tahun_ajaran_id_foreign` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `tahun_ajarans` (`id`) ON DELETE CASCADE;
 
 --
@@ -1010,6 +1018,7 @@ ALTER TABLE `ruang_diskusi_comments`
 --
 ALTER TABLE `siswas`
   ADD CONSTRAINT `siswas_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswas_rombel_id_foreign` FOREIGN KEY (`rombel_id`) REFERENCES `rombels` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `siswas_tahun_ajaran_id_foreign` FOREIGN KEY (`tahun_ajaran_id`) REFERENCES `tahun_ajarans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `siswas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

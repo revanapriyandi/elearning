@@ -75,24 +75,24 @@ class RombonganController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'siswa_id' => ['required', 'string'],
+            'name' => ['required', 'string'],
             'guru_id' => ['required', 'string'],
             'kelas_id' => ['required', 'string'],
             'tahun_ajaran_id' => ['required', 'string'],
-            'jumlah_siswa' => ['required', 'string'],
             'status' => ['required'],
+            'desc' => ['nullable', 'string'],
         ]);
 
         $data = Rombel::find($id);
-        $data->siswa_id = $request->siswa_id;
+        $data->name = $request->name;
         $data->guru_id = $request->guru_id;
         $data->kelas_id = $request->kelas_id;
         $data->tahun_ajaran_id = $request->tahun_ajaran_id;
-        $data->jumlah_siswa = $request->jumlah_siswa;
+        $data->desc = $request->desc;
         $data->status = $request->status == '1' ? true : false;
         $data->save();
 
-        return redirect()->route('rombel')->with('success', 'Rombongan berhasil diubah');
+        return redirect()->back()->with('success', 'Rombongan berhasil diubah');
     }
 
     public function show($id)

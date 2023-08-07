@@ -46,6 +46,10 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        {{ __('Status') }}
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         {{ __('Jumlah Siswa') }}
                                     </th>
                                     <th
@@ -100,11 +104,21 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-sm">
+                                                <span
+                                                    class="badge badge-{{ $item->status ? 'success' : 'danger' }}">{{ $item->status ? 'Aktif' : 'Tidak Aktif' }}</span>
+                                            </span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-sm">
                                                 {{ $item->jml_siswa }}
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="btn-group" role="group" aria-label="Aksi">
+                                                <a href="{{ route('rombel.show', $item->id) }}"
+                                                    class="btn btn-link text-secondary font-weight-bold text-xs">
+                                                    <span class="badge badge-sm bg-gradient-primary">Show</span>
+                                                </a>
                                                 <a href="{{ route('rombel.edit', $item->id) }}"
                                                     class="btn btn-link text-secondary font-weight-bold text-xs">
                                                     <span class="badge badge-sm bg-gradient-warning">Edit</span>

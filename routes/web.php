@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/rombel/{id}/delete', [RombonganController::class, 'destroy'])->name('rombel.destroy');
     Route::get('/rombel/{id}/show', [RombonganController::class, 'show'])->name('rombel.show');
     Route::post('/rombel/{id}/siswa', [RombonganController::class, 'addSiswa'])->name('rombel.siswa');
-    Route::delete('/rombel/siswa/{siswa}', [RombonganController::class, 'removeSiswa'])->name('rombel.siswa.remove');
+    Route::delete('/rombel/siswa/{id}', [RombonganController::class, 'removeSiswa'])->name('rombel.siswa.remove');
 
     Route::post('uploads', [UploaderController::class, 'uploads'])->name('uploads');
     Route::get('download/{file}', [UploaderController::class, 'download'])->name('download');
